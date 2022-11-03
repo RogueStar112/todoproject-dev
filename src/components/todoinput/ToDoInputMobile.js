@@ -57,20 +57,14 @@ function ToDoInputMobile( {addTask} ) {
 
     <Form>
     <Container className="mt-3">
-    <Row>
-      <Col>
+
         <ToDoInputField value={userInput} onChange={handleChange} label="Name of task*" type="text" name="todo-name" placeholder="Clean room desk"></ToDoInputField>
-      </Col>
-    </Row>
+
     </Container>
 
     <Container className="mt-3">
-        
-        <Row>
 
         
-        <Col>
-        <h1>Is Mobile</h1>
         <ToDoInputField value={userInput_tags} onChange={handleChange_tags} label="tags (separate with commas)*" type="text" name="todo-tags" placeholder="chores, cleaning"></ToDoInputField>
         <ToDoInputField value={userInput_date} onChange={handleChange_date} label="tag date and time*" type="datetime-local" name="todo-time" hasSubmitField="true"></ToDoInputField>
         <ToDoInputField value={userInput_color} onChange={handleChange_color} label="tag color" type="color" name="todo-color"></ToDoInputField>
@@ -78,8 +72,7 @@ function ToDoInputMobile( {addTask} ) {
         <Button onClick={handleSubmit} className="mx-2" style={{width: "100%"}} variant="primary" type="submit">
          Submit
         </Button>
-        </Col>
-        </Row>
+
     </Container>
     </Form>
     </>
