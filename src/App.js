@@ -64,7 +64,7 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
 
   return (
-    <div className="app" style={{width: "60vw", margin: "0 auto"}}>
+    <div className="app" style={{width: "100vw", margin: "0 auto"}}>
       <ToDoInput addTask={addTask}/>
       <ToDoOutput toDoList={toDoList} counter={counter} />
       <ClearTasksButton />
