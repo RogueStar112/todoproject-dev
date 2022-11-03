@@ -1,0 +1,56 @@
+{
+    "id": 1,
+    "task": "Clean room desk",
+    "tags": ["chores"],
+    "complete": false,
+    "subtasks": [],
+    "bg": "#E0BBE4"
+
+
+}, 
+
+{
+    "id": 2,
+    "task": "Repaint wall",
+    "tags": ["chores"],
+    "complete": false,
+    "subtasks": [],
+    "bg": "#FFDFD3"
+
+},
+
+{
+    "id": 3,
+    "task": "Do groceries",
+    "tags": ["groceries", "shopping"],
+    "complete": false,
+    "subtasks": [],
+    "bg": "#D291BC"
+},
+
+{
+    "id": 4,
+    "task": "Fix sibling's computer",
+    "tags": ["chores", "repair"],
+    "complete": false,
+    "subtasks": [],
+    "bg": "#957DAD"
+},
+
+{
+    "id": 5,
+    "task": "Cook dinner",
+    "tags": ["food", "cooking"],
+    "complete": false,
+    "subtasks": [],
+    "bg": "#B5E3E3"
+},
+
+{
+    "id": 6,
+    "task": "Buy milk",
+    "tags": ["food", "shopping", "cooking"],
+    "complete": false,
+    "subtasks": [],
+    "bg": "#00FF00"
+}
