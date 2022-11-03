@@ -20,9 +20,9 @@ const ClearTasksButton = () => {
 
 
     return (
-    <Container className="mt-3">
+        <div>
         <Button variant="success" onClick={() => CompleteTasks()} style={{width: "100%"}}>Clear Tasks</Button>
-    </Container>
+        </div>
     )
 } 
 
