@@ -1,20 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 
 import * as icon from 'react-bootstrap-icons';
+import { getTime } from 'date-fns';
 
-const ToDoTask = ({todo}) => {
+const ToDoTask = ({todo, counter}) => {
 
     const [isFinished, setIsFinished] = useState(false);
 
+    const [isDueNow, setisDueNow] = useState(false);
+
+    useEffect(() => {
+        checkIfDue()
+    }, [counter]);
+
+    const checkIfDue = () => {
+        
+        var currentDateTime = new Date();
+        var dueTimeInSeconds = currentDateTime.getTime() / 1000;
+
+        
+        if (dateValue < dueTimeInSeconds) {
+            setisDueNow(true);
+        }
+
+
+    }
 
     const taskAlert = () => {
         
         setIsFinished(!isFinished);
 
     }
+    
+    const dateValue = Date.parse(todo.time);
+    const dateDisplay = todo.time.toLocaleString();
 
     return (
         <tr key={todo.id+todo.task} onClick={() => taskAlert()} className={isFinished ? "text-decoration-line-through" : ""}>
@@ -23,6 +45,7 @@ const ToDoTask = ({todo}) => {
             <td style={{listStyle: "none"}}>{todo.tags.map(todo_tag => {
                 {return (<Badge className="mx-1" bg="primary">{todo_tag}</Badge>);}
             })}</td>
+            <td>{isDueNow ? "NOW" : dateDisplay}</td>
         </tr>
     );
 }

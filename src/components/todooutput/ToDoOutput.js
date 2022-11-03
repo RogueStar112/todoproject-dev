@@ -2,7 +2,7 @@ import Table from 'react-bootstrap/Table';
 
 import ToDoTask from "./ToDoTask.js";
 
-const ToDoOutput = ({toDoList}) => {
+const ToDoOutput = ({toDoList, counter}) => {
     
     
     return (
@@ -15,6 +15,7 @@ const ToDoOutput = ({toDoList}) => {
                     <th>ID</th>
                     <th>Task</th>
                     <th>Tags</th>
+                    <th>Due</th>
                 </tr>
             </thead>
 
@@ -22,7 +23,7 @@ const ToDoOutput = ({toDoList}) => {
             {toDoList.map(todo => {
 
                 return (
-                    <ToDoTask key={todo.id+todo.task} todo={todo}  />                
+                    <ToDoTask key={todo.id+todo.task} todo={todo} counter={counter}  />                
                 );
                     
             })}

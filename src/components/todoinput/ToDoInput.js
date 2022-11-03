@@ -13,7 +13,7 @@ function ToDoInput( {addTask} ) {
 
   const [userInput, setUserInput] = useState("");
   const [userInput_tags, setUserInput_tags] = useState("");
-  const [userInput_color, setUserInput_color] = useState("#FFFFFF");
+  const [userInput_color, setUserInput_color] = useState("#DDDDDD");
   const [userInput_date, setUserInput_date] = useState("");
 
   const handleChange = (e) => {
@@ -30,6 +30,7 @@ function ToDoInput( {addTask} ) {
 
   const handleChange_date = (e) => {
     setUserInput_date(e.currentTarget.value);
+    console.log("TLS +", userInput_date.toLocaleString);
   }
 
   const handleSubmit = (e) => {
@@ -39,8 +40,9 @@ function ToDoInput( {addTask} ) {
     if (userInput == "" || userInput_tags == "") {
       alert('You must include a task name and tag');
     } else {
-      addTask(userInput, userInput_tags, userInput_color);
-      
+      const userInput_date_display = Date.parse(userInput_date).toLocaleString;
+      addTask(userInput, userInput_tags, userInput_color, userInput_date_display);
+
       setUserInput("");
       setUserInput_tags("");
       setUserInput_color("#FFFFFF");
@@ -51,13 +53,13 @@ function ToDoInput( {addTask} ) {
 
   return (
     <>
-    <h1 className="text-center mt-3">Todo</h1>
+    <h1 className="text-center mt-3">Todo App</h1>
 
     <Form>
     <Container className="mt-3">
     <Row>
       <Col>
-        <ToDoInputField value={userInput} onChange={handleChange} label="Name of task" type="text" name="todo-name" placeholder="Clean room desk"></ToDoInputField>
+        <ToDoInputField value={userInput} onChange={handleChange} label="Name of task*" type="text" name="todo-name" placeholder="Clean room desk"></ToDoInputField>
       </Col>
     </Row>
     </Container>
@@ -67,9 +69,9 @@ function ToDoInput( {addTask} ) {
         <Row>
 
         
-        <Col><ToDoInputField value={userInput_tags} onChange={handleChange_tags} label="tags (separate with commas)" type="text" name="todo-tags" placeholder="chores, cleaning"></ToDoInputField></Col>
+        <Col><ToDoInputField value={userInput_tags} onChange={handleChange_tags} label="tags (separate with commas)*" type="text" name="todo-tags" placeholder="chores, cleaning"></ToDoInputField></Col>
+        <Col><ToDoInputField value={userInput_date} onChange={handleChange_date} label="tag date and time*" type="datetime-local" name="todo-time" hasSubmitField="true"></ToDoInputField></Col>
         <Col><ToDoInputField value={userInput_color} onChange={handleChange_color} label="tag color" type="color" name="todo-color"></ToDoInputField></Col>
-        <Col><ToDoInputField value={userInput_date} onChange={handleChange_date} label="tag date" type="date" name="todo-time" hasSubmitField="true"></ToDoInputField></Col>
         <Col>
         <Button onClick={handleSubmit} className="mx-2" style={{width: "100%"}} variant="primary" type="submit">
          Submit
