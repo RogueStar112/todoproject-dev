@@ -22,7 +22,7 @@ const ToDoTask = ({todo, counter}) => {
         var dueTimeInSeconds = currentDateTime.getTime() / 1000;
 
         
-        if (dateValue < dueTimeInSeconds) {
+        if (dateValue/1000 < dueTimeInSeconds) {
             setisDueNow(true);
         }
 

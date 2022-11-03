@@ -30,7 +30,7 @@ function ToDoInput( {addTask} ) {
 
   const handleChange_date = (e) => {
     setUserInput_date(e.currentTarget.value);
-    console.log("TLS +", userInput_date.toLocaleString);
+    console.log("TLS +", userInput_date.toString());
   }
 
   const handleSubmit = (e) => {
@@ -40,12 +40,12 @@ function ToDoInput( {addTask} ) {
     if (userInput == "" || userInput_tags == "") {
       alert('You must include a task name and tag');
     } else {
-      const userInput_date_display = Date.parse(userInput_date).toLocaleString;
+      const userInput_date_display = userInput_date.toLocaleString();
       addTask(userInput, userInput_tags, userInput_color, userInput_date_display);
 
       setUserInput("");
       setUserInput_tags("");
-      setUserInput_color("#FFFFFF");
+      setUserInput_color("#DDDDDD");
     }
 
 
