@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import ToDoInput from './components/todoinput/ToDoInput.js';
+import ToDoInputMobile from './components/todoinput/ToDoInputMobile';
 import ToDoOutput from './components/todooutput/ToDoOutput.js';
 import data from "./data.json";
 import 'react-bootstrap';
@@ -62,15 +63,25 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
 }
 
-
+  if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
   return (
-    <div className="app" style={{width: "100vw", margin: "0 auto"}}>
-      <ToDoInput addTask={addTask}/>
+    <div className="app" style={{width: "100vw"}}>
+      <ToDoInputMobile addTask={addTask}/>
       <ToDoOutput toDoList={toDoList} counter={counter} />
       <ClearTasksButton />
       <p className="mt-5" style={{textAlign: "right"}}>{currentDateTime}</p>
     </div>
   );
+  } else {
+    return (
+    <div className="app" style={{width: "100vw"}}>
+    <ToDoInput addTask={addTask}/>
+    <ToDoOutput toDoList={toDoList} counter={counter} />
+    <ClearTasksButton />
+    <p className="mt-5" style={{textAlign: "right"}}>{currentDateTime}</p>
+    </div>
+    )
+  }
 }
 
 export default App;
