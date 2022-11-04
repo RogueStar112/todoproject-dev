@@ -13,8 +13,20 @@ import ClearTasksButton from './components/todoinput/ClearTasksButton';
 
 function App() {
 
+/*
+localStorage.clear();
+*/
 const date = new Date();
 
+/*
+if (localStorage.getItem("data") === null) {
+
+} else {
+  data = localStorage.setItem("data", []);
+  data = localStorage.getItem("data")
+  console.log("DATA", data);
+}
+*/
 
 var userTimezoneOffset = date.getTimezoneOffset() * 60000;
 var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -40,13 +52,22 @@ useEffect(() => {
 const [ toDoList, setToDoList ] = useState(data);
 
 
+//localStorage.clear();
 
 // thanks to: https://codesandbox.io/s/todo-list-hooks-ebfgw?file=/src/App.js:619-796
 const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) => {
 
   
 
+  if (userInput_tags == null) {
+    userInput_tags = ['misc'];
+  }
 
+  /*
+  if (userInput_date == null) {
+    userInput_date = new Date(); 
+  }
+  */
 
 
 
@@ -60,6 +81,8 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
   let copy = [...toDoList];
   copy = [...copy, { id: toDoList.length + 1, task: userInput_task, time: userInput_date, tags: userInput_tags, complete: false, subtasks: [], bg: userInput_bg }];
   setToDoList(copy);
+  
+  //localStorage.setItem('data', JSON.stringify(toDoList));
 
 }
 

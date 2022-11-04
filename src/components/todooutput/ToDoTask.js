@@ -35,11 +35,12 @@ const ToDoTask = ({todo, counter}) => {
 
     }
     
-    const dateValue = Date.parse(todo.time);
-    const dateDisplay = todo.time.toLocaleString();
+
+    const dateValue = new Date(`${todo.time}`);
+    const dateDisplay = dateValue.toLocaleString();
 
     return (
-        <tr key={todo.id+todo.task} onClick={() => taskAlert()} className={isFinished ? "text-decoration-line-through" : ""}>
+        <tr key={todo.id+todo.task} onClick={() => taskAlert()} className={isFinished ? "text-decoration-line-through bg-info" : ""}>
             <td style={{backgroundColor: `${todo.bg}`}}>{todo.id}</td>
             <td>{todo.task}</td>
             <td style={{listStyle: "none"}}>{todo.tags.map(todo_tag => {

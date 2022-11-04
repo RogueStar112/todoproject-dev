@@ -3,10 +3,8 @@
     "task": "Clean room desk",
     "tags": ["chores"],
     "complete": false,
-    "subtasks": [],
+    "time": "04/11/2022 11:00AM",
     "bg": "#E0BBE4"
-
-
 }, 
 
 {

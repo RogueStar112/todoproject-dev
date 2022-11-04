@@ -13,7 +13,7 @@ const CompleteTasks = () => {
     completeTasks.forEach(completeTask => {
         completeTask.remove();
     })
-
+    
 }
 
 const ClearTasksButton = () => {
