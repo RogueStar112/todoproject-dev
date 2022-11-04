@@ -11,7 +11,7 @@ const ToDoInputField = (props) => {
       <div className="" style={{position: "relative", width: "100%"}}>
       <Form.Label size="sm" className="my-2" style={{position: "absolute", bottom:"30px", display: "", fontSize: "10px"}}>{props.label}</Form.Label>
 
-      <Form.Control className="" type={props.type} value={props.value} onChange={props.onChange} name={props.name} placeholder={props.placeholder} style={{width: "100%"}}>
+      <Form.Control className="my-2" type={props.type} value={props.value} onChange={props.onChange} name={props.name} placeholder={props.placeholder} style={{width: "100%"}}>
       </Form.Control>
       </div>
     );

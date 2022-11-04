@@ -42,7 +42,7 @@ function ToDoInput( {addTask} ) {
 
 
       /*const userInput_date_display = Date.parse(userInput_date).toLocaleString(); */
-      
+
       addTask(userInput, userInput_tags, userInput_color, userInput_date);
 
       setUserInput("");
@@ -75,7 +75,7 @@ function ToDoInput( {addTask} ) {
         <Col><ToDoInputField value={userInput_date} onChange={handleChange_date} label="tag date and time*" type="datetime-local" name="todo-time" hasSubmitField="true"></ToDoInputField></Col>
         <Col><ToDoInputField value={userInput_color} onChange={handleChange_color} label="tag color" type="color" name="todo-color"></ToDoInputField></Col>
         <Col>
-        <Button onClick={handleSubmit} className="mx-2" style={{width: "100%"}} variant="primary" type="submit">
+        <Button onClick={handleSubmit} className="my-2" style={{width: "100%"}} variant="primary" type="submit">
          Submit
         </Button>
         </Col>

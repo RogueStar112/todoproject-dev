@@ -97,7 +97,8 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
   );
   } else {
     return (
-    <div className="app" style={{width: "100vw"}}>
+      
+    <div className="app" style={{width: "70vw", margin: "0 auto"}}>
     <ToDoInput addTask={addTask}/>
     <ToDoOutput toDoList={toDoList} counter={counter} />
     <ClearTasksButton />

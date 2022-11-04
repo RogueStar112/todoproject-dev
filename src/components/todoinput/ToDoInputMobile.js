@@ -65,9 +65,9 @@ function ToDoInputMobile( {addTask} ) {
     <Container className="mt-3">
 
         
-        <ToDoInputField value={userInput_tags} onChange={handleChange_tags} label="tags (separate with commas)*" type="text" name="todo-tags" placeholder="chores, cleaning"></ToDoInputField>
-        <ToDoInputField value={userInput_date} onChange={handleChange_date} label="tag date and time*" type="datetime-local" name="todo-time" hasSubmitField="true"></ToDoInputField>
-        <ToDoInputField value={userInput_color} onChange={handleChange_color} label="tag color" type="color" name="todo-color"></ToDoInputField>
+        <ToDoInputField style={{margin: "10px"}} value={userInput_tags} onChange={handleChange_tags} label="tags (separate with commas)*" type="text" name="todo-tags" placeholder="chores, cleaning"></ToDoInputField>
+        <ToDoInputField style={{margin: "10px"}} value={userInput_date} onChange={handleChange_date} label="tag date and time*" type="datetime-local" name="todo-time" hasSubmitField="true"></ToDoInputField>
+        <ToDoInputField style={{margin: "10px"}} value={userInput_color} onChange={handleChange_color} label="tag color" type="color" name="todo-color"></ToDoInputField>
 
         <Button onClick={handleSubmit} className="mx-2" style={{width: "100%"}} variant="primary" type="submit">
          Submit
