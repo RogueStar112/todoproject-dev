@@ -9,7 +9,7 @@ const ToDoOutput = ({toDoList, counter}) => {
         <div>
         <p className="mt-3 text-center">Click on a todo task to mark as finished.</p>
 
-        <Table className="m-3 text-center">
+        <Table className="mt-3 text-center">
             <thead className="mt-3">
                 <tr>
                     <th>ID</th>

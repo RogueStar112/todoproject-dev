@@ -92,7 +92,7 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
       <ToDoInputMobile addTask={addTask}/>
       <ToDoOutput toDoList={toDoList} counter={counter} />
       <ClearTasksButton />
-      <p className="mt-5" style={{textAlign: "right"}}>{currentDateTime}</p>
+      <p className="my-2 ml-2" style={{textAlign: "right"}}>{currentDateTime}</p>
     </div>
   );
   } else {
