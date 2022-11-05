@@ -11,21 +11,20 @@ import ClearTasksButton from './components/todoinput/ClearTasksButton';
 import TagFilter from './components/todoinput/TagFilter.js';
 
 
-
+import { useLocalStorage } from './useLocalStorage';
 
 function App() {
 
-/*
-localStorage.clear();
-*/
+
+
 const date = new Date();
 
 /*
 if (localStorage.getItem("data") === null) {
 
 } else {
-  data = localStorage.setItem("data", []);
   data = localStorage.getItem("data")
+  data = JSON.parse(data);
   console.log("DATA", data);
 }
 */
@@ -51,7 +50,7 @@ useEffect(() => {
 }, [counter]);  
 
 
-const [ toDoList, setToDoList ] = useState(data);
+const [ toDoList, setToDoList ] = useLocalStorage(data, []);
 
 
 //localStorage.clear();
@@ -108,7 +107,6 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
   setToDoList(filtered);
 
-  console.log('removed tasks', toDoList);
   
 }
 
@@ -116,8 +114,8 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
   if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
   return (
     <div className="app" style={{width: "95vw", margin: "0 auto"}}>
-      <ToDoInputMobile addTask={addTask} toggleTask={toggleTask}/>
-      <ToDoOutput toDoList={toDoList} counter={counter} />
+      <ToDoInputMobile addTask={addTask}/>
+      <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask}/>
       <ClearTasksButton removeTasks={removeTasks}/>
       <TagFilter />
       <p className="my-2 ml-2" style={{textAlign: "right"}}>{currentDateTime}</p>
