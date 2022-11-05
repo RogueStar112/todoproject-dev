@@ -88,7 +88,7 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
   if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
   return (
-    <div className="app" style={{width: "98vw"}}>
+    <div className="app" style={{width: "95vw", margin: "0 auto"}}>
       <ToDoInputMobile addTask={addTask}/>
       <ToDoOutput toDoList={toDoList} counter={counter} />
       <ClearTasksButton />
