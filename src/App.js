@@ -8,6 +8,8 @@ import 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ClearTasksButton from './components/todoinput/ClearTasksButton';
 
+import TagFilter from './components/todoinput/TagFilter.js';
+
 
 
 
@@ -73,6 +75,7 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
   // removes spaces and uses commas to separate tags!
   userInput_tags = userInput_tags.replace(/\s/g, '')
+  userInput_tags = userInput_tags.toLowerCase();
   userInput_tags = userInput_tags.split(',')
 
 
@@ -86,22 +89,50 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
 }
 
+ const toggleTask = (id) => {
+
+  console.log('ID', id)
+  let mapped = toDoList.map(task => {
+    return task.id === Number(id) ? { ...task, complete: !task.complete } : { ...task};
+  });
+
+   setToDoList(mapped)
+ }
+
+ const removeTasks = () => {
+
+  let filtered = toDoList.filter(task => {
+      return !task.complete; 
+  });
+
+
+  setToDoList(filtered);
+
+  console.log('removed tasks', toDoList);
+  
+}
+
+  // if a mobile device
   if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
   return (
     <div className="app" style={{width: "95vw", margin: "0 auto"}}>
-      <ToDoInputMobile addTask={addTask}/>
+      <ToDoInputMobile addTask={addTask} toggleTask={toggleTask}/>
       <ToDoOutput toDoList={toDoList} counter={counter} />
-      <ClearTasksButton />
+      <ClearTasksButton removeTasks={removeTasks}/>
+      <TagFilter />
       <p className="my-2 ml-2" style={{textAlign: "right"}}>{currentDateTime}</p>
     </div>
   );
+
+  //otherwise if desktop
   } else {
     return (
-      
+    
     <div className="app" style={{width: "70vw", margin: "0 auto"}}>
     <ToDoInput addTask={addTask}/>
-    <ToDoOutput toDoList={toDoList} counter={counter} />
-    <ClearTasksButton />
+    <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask} />
+    <ClearTasksButton removeTasks={removeTasks}/>
+    <TagFilter />
     <p className="mt-5" style={{textAlign: "right"}}>{currentDateTime}</p>
     </div>
     )

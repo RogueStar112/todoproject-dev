@@ -4,10 +4,13 @@ import ToDoInputField from "./ToDoInputField";
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
 
 function ToDoInput( {addTask} ) {
 
@@ -15,7 +18,7 @@ function ToDoInput( {addTask} ) {
   const [userInput_tags, setUserInput_tags] = useState("");
   const [userInput_color, setUserInput_color] = useState("#DDDDDD");
   const [userInput_date, setUserInput_date] = useState("");
-
+  
   const handleChange = (e) => {
     setUserInput(e.currentTarget.value);
   }
@@ -57,11 +60,12 @@ function ToDoInput( {addTask} ) {
     <>
     <h1 className="text-center mt-3">Todo App</h1>
 
+    <h3 className="text-center">Task creation</h3>
     <Form>
     <Container className="mt-3">
     <Row>
       <Col>
-        <ToDoInputField value={userInput} onChange={handleChange} label="Name of task*" type="text" name="todo-name" placeholder="Clean room desk"></ToDoInputField>
+        <ToDoInputField value={userInput} width_val={"100%"} onChange={handleChange} label="Name of task*" type="text" name="todo-name" placeholder="Clean room desk"></ToDoInputField>
       </Col>
     </Row>
     </Container>
@@ -71,17 +75,18 @@ function ToDoInput( {addTask} ) {
         <Row>
 
         
-        <Col><ToDoInputField value={userInput_tags} onChange={handleChange_tags} label="tags (separate with commas)*" type="text" name="todo-tags" placeholder="chores, cleaning"></ToDoInputField></Col>
-        <Col><ToDoInputField value={userInput_date} onChange={handleChange_date} label="tag date and time*" type="datetime-local" name="todo-time" hasSubmitField="true"></ToDoInputField></Col>
-        <Col><ToDoInputField value={userInput_color} onChange={handleChange_color} label="tag color" type="color" name="todo-color"></ToDoInputField></Col>
+        <Col><ToDoInputField value={userInput_tags} width_val={"100%"} onChange={handleChange_tags} label="tags (separate with commas)*" type="text" name="todo-tags" placeholder="chores, cleaning"></ToDoInputField></Col>
+        <Col><ToDoInputField value={userInput_date} width_val={"100%"} onChange={handleChange_date} label="date and time reminder*" type="datetime-local" name="todo-time" hasSubmitField="true"></ToDoInputField></Col>
+        <Col><ToDoInputField value={userInput_color} width_val={"100%"} onChange={handleChange_color} label="task color" type="color" name="todo-color"></ToDoInputField></Col>
         <Col>
-        <Button onClick={handleSubmit} className="my-2" style={{width: "100%"}} variant="primary" type="submit">
+        <Button onClick={handleSubmit} className="" style={{width: "100%"}} variant="primary" type="submit">
          Submit
         </Button>
         </Col>
         </Row>
     </Container>
     </Form>
+
     </>
   );
 }
