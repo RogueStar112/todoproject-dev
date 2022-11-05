@@ -69,7 +69,7 @@ function ToDoInputMobile( {addTask} ) {
         <ToDoInputField style={{marginTop: "20px"}} value={userInput_date} onChange={handleChange_date} label="tag date and time*" type="datetime-local" name="todo-time" hasSubmitField="true"></ToDoInputField>
         <ToDoInputField style={{marginTop: "20px"}} value={userInput_color} onChange={handleChange_color} label="tag color" type="color" name="todo-color"></ToDoInputField>
 
-        <Button onClick={handleSubmit} className="mx-2" style={{width: "100%"}} variant="primary" type="submit">
+        <Button onClick={handleSubmit} style={{marginTop: "20px"}} className="my-2" style={{width: "100%"}} variant="primary" type="submit">
          Submit
         </Button>
 
