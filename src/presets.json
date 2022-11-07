@@ -1,0 +1,74 @@
+[
+    {
+        "preset_id": 1,
+        "name": "Daily chores",
+        "tasks": [{
+            "id": 1,
+            "task": "Brush teeth",
+            "tags": ["chores", "self-care"],
+            "complete": false,
+            "time": "07/11/2022, 08:00",
+            "bg": "#CC0000",
+            "isSearched": false, 
+            "subtasks": []
+        },
+        
+        {
+            "id": 2,
+            "task": "Take shower",
+            "tags": ["chores", "self-care"],
+            "complete": false,
+            "time": "07/11/2022, 08:10",
+            "bg": "#CC0000",
+            "isSearched": false, 
+            "subtasks": []
+        },
+
+        {
+            "id": 3,
+            "task": "Make breakfast",
+            "tags": ["food", "breakfast"],
+            "complete": false,
+            "time": "07/11/2022, 08:30",
+            "bg": "#BBBB00",
+            "isSearched": false, 
+            "subtasks": []
+        },
+
+        {
+            "id": 4,
+            "task": "Clean room desk",
+            "tags": ["chores", "self-care"],
+            "complete": false,
+            "time": "07/11/2022, 08:45",
+            "bg": "#BBBB00",
+            "isSearched": false, 
+            "subtasks": []
+        },
+
+        {
+            "id": 5,
+            "task": "Head to school",
+            "tags": ["travel", "driving", "school"],
+            "complete": false,
+            "time": "07/11/2022, 10:00",
+            "bg": "#BBBB00",
+            "isSearched": false, 
+            "subtasks": []
+        },
+
+        {
+            "id": 6,
+            "task": "Make bed",
+            "tags": ["chores", "self-care"],
+            "complete": false,
+            "time": "07/11/2022, 10:00",
+            "bg": "#CC0000",
+            "isSearched": false, 
+            "subtasks": []
+        }
+
+        ]
+    }
+]
+

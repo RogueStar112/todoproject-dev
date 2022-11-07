@@ -25,7 +25,7 @@ const ToDoOutput = ({toDoList, counter, toggleTask}) => {
             {toDoList.map(todo => {
 
                 return (
-                    <ToDoTask key={todo.id+todo.task} toDoList={toDoList} todo={todo} counter={counter} toggleTask={toggleTask}  />                
+                    <ToDoTask key={todo.id+todo.task} toDoList={toDoList} todo={todo} counter={counter} toggleTask={toggleTask}   />                
                 );
                     
             })}

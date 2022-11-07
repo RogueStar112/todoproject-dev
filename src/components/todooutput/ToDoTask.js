@@ -39,14 +39,18 @@ const ToDoTask = ({todo, counter, toDoList, toggleTask}) => {
     
 
     const dateValue = new Date(`${todo.time}`);
-    const dateDisplay = dateValue.toLocaleString();
+    let dateDisplay = dateValue.toLocaleString();
+
+    if (dateDisplay == "Invalid Date") {
+        dateDisplay = "No date specified...";
+    }
 
     return (
         <tr key={todo.id+todo.task} onClick={() => {toggleTask(todo.id); taskAlert()}} className={isFinished ? "text-decoration-line-through bg-info" : ""}>
             <td style={{backgroundColor: `${todo.bg}`}}>{todo.id}</td>
             <td>{todo.task}</td>
             <td style={{listStyle: "none"}}>{todo.tags.map(todo_tag => {
-                {return (<Badge className="mx-1" bg="primary">{todo_tag}</Badge>);}
+                {return (<Badge className={todo.isSearched ? "bg-success mx-1" : "mx-1"} bg="primary">{todo_tag}</Badge>);}
             })}</td>
             <td>{isDueNow ? "NOW" : dateDisplay.slice(0, -3)}</td>
         </tr>

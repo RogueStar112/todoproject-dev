@@ -4,6 +4,10 @@ import ToDoInput from './components/todoinput/ToDoInput.js';
 import ToDoInputMobile from './components/todoinput/ToDoInputMobile';
 import ToDoOutput from './components/todooutput/ToDoOutput.js';
 import data from "./data.json";
+
+import ToDoPreset from './components/todopresets/ToDoPreset';
+import ToDoPresetList from './components/todopresets/ToDoPresetList';
+
 import 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ClearTasksButton from './components/todoinput/ClearTasksButton';
@@ -81,7 +85,7 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
   console.log(userInput_tags)
 
   let copy = [...toDoList];
-  copy = [...copy, { id: toDoList.length + 1, task: userInput_task, time: userInput_date, tags: userInput_tags, complete: false, subtasks: [], bg: userInput_bg }];
+  copy = [...copy, { id: toDoList.length + 1, task: userInput_task, time: userInput_date, tags: userInput_tags, complete: false, isSearched: false, subtasks: [], bg: userInput_bg }];
   setToDoList(copy);
   
   //localStorage.setItem('data', JSON.stringify(toDoList));
@@ -104,20 +108,66 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
       return !task.complete; 
   });
 
+  console.log("FILTERED RT", toDoList)
 
   setToDoList(filtered);
 
   
 }
 
+//console.log("TDL", toDoList);
+
+  const filterTasks = (query) => {
+
+    let filtered_list = toDoList;
+
+    let filtered = filtered_list.map((task) => {
+
+      console.log("TTAGS", task.tags);
+
+      let isValidated = false
+      task.tags.map(
+        tag => {
+          if (tag.startsWith(query)) {
+            isValidated = true;
+          } else {
+
+          }
+
+        });
+
+        if (isValidated == true) {
+          return {...task, isSearched: true}
+        } else {
+          return {...task, isSearched: false}
+        }
+    });
+    /*
+    let filtered = filtered_list.map(task => {
+
+        console.log("TTAGS", task.tags);
+        task.tags.map(tag => tag.startsWith(query) == true;
+        );
+
+      });
+    */
+    
+    console.log("FILTERED LIST", filtered)
+
+    
+    setToDoList(filtered);
+  }
+
   // if a mobile device
   if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
   return (
     <div className="app" style={{width: "95vw", margin: "0 auto"}}>
       <ToDoInputMobile addTask={addTask}/>
+      <TagFilter filterTasks={filterTasks}/>
+      <hr></hr>
+      <ToDoPresetList></ToDoPresetList>
       <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask}/>
       <ClearTasksButton removeTasks={removeTasks}/>
-      <TagFilter />
       <p className="my-2 ml-2" style={{textAlign: "right"}}>{currentDateTime}</p>
     </div>
   );
@@ -128,9 +178,14 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
     
     <div className="app" style={{width: "70vw", margin: "0 auto"}}>
     <ToDoInput addTask={addTask}/>
+    <TagFilter filterTasks={filterTasks}/>
+
+    
+    <ToDoPresetList></ToDoPresetList>
     <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask} />
+
+
     <ClearTasksButton removeTasks={removeTasks}/>
-    <TagFilter />
     <p className="mt-5" style={{textAlign: "right"}}>{currentDateTime}</p>
     </div>
     )
