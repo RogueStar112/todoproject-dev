@@ -62,11 +62,51 @@
             "task": "Make bed",
             "tags": ["chores", "self-care"],
             "complete": false,
-            "time": "07/11/2022, 10:00",
+            "time": "07/11/2022, 10:15",
+            "bg": "#CC0000",
+            "isSearched": false, 
+            "subtasks": []
+        },
+
+        {
+            "id": 7,
+            "task": "Wash dishes",
+            "tags": ["chores", "cleaning"],
+            "complete": false,
+            "time": "07/11/2022, 10:20",
             "bg": "#CC0000",
             "isSearched": false, 
             "subtasks": []
         }
+
+        ]
+    },
+
+    {
+        "preset_id": 2,
+        "name": "Meal suggestions",
+        "tasks": [{
+            "id": 1,
+            "task": "Make mac and cheese",
+            "tags": ["food", "lunch"],
+            "complete": false,
+            "time": "07/11/2022, 08:00",
+            "bg": "#CC0000",
+            "isSearched": false, 
+            "subtasks": []
+        },
+
+        {
+            "id": 2,
+            "task": "Make cereal",
+            "tags": ["food", "breakfast"],
+            "complete": false,
+            "time": "07/11/2022, 08:00",
+            "bg": "#CC0000",
+            "isSearched": false, 
+            "subtasks": []
+        }
+    
 
         ]
     }

@@ -7,6 +7,7 @@ import data from "./data.json";
 
 import ToDoPreset from './components/todopresets/ToDoPreset';
 import ToDoPresetList from './components/todopresets/ToDoPresetList';
+import SaveToDoPreset from './components/todopresets/SaveToDoPreset';
 
 import 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,6 +17,7 @@ import TagFilter from './components/todoinput/TagFilter.js';
 
 
 import { useLocalStorage } from './useLocalStorage';
+import { ConsoleSqlOutlined } from '@ant-design/icons';
 
 function App() {
 
@@ -60,9 +62,24 @@ const [ toDoList, setToDoList ] = useLocalStorage(data, []);
 //localStorage.clear();
 
 // thanks to: https://codesandbox.io/s/todo-list-hooks-ebfgw?file=/src/App.js:619-796
+
+const addMultipleTasks = (tasks) => {
+
+  console.log("TASKS", tasks);
+
+  let copy = [...toDoList];
+
+  tasks.forEach((task, index) => {
+    copy = [...copy, { id: toDoList.length + index+1, task: task.task, time: task.time, tags: task.tags, complete: false, isSearched: false, subtasks: [], bg: task.bg }];
+  });
+
+  setToDoList(copy);
+ 
+}
+
 const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) => {
 
-  
+  //console.log('FUNCTION CALL')
 
   if (userInput_tags == null) {
     userInput_tags = ['misc'];
@@ -77,16 +94,23 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
 
   // removes spaces and uses commas to separate tags!
+
+  //console.log("uI TAGS", userInput_tags);
+
+  if (Array.isArray(userInput_tags)) {
+    
+  } else {
   userInput_tags = userInput_tags.replace(/\s/g, '')
   userInput_tags = userInput_tags.toLowerCase();
   userInput_tags = userInput_tags.split(',')
+  }
 
-
-  console.log(userInput_tags)
 
   let copy = [...toDoList];
   copy = [...copy, { id: toDoList.length + 1, task: userInput_task, time: userInput_date, tags: userInput_tags, complete: false, isSearched: false, subtasks: [], bg: userInput_bg }];
   setToDoList(copy);
+  
+  //console.log("STDL", toDoList);
   
   //localStorage.setItem('data', JSON.stringify(toDoList));
 
@@ -94,7 +118,6 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
  const toggleTask = (id) => {
 
-  console.log('ID', id)
   let mapped = toDoList.map(task => {
     return task.id === Number(id) ? { ...task, complete: !task.complete } : { ...task};
   });
@@ -107,8 +130,6 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
   let filtered = toDoList.filter(task => {
       return !task.complete; 
   });
-
-  console.log("FILTERED RT", toDoList)
 
   setToDoList(filtered);
 
@@ -165,7 +186,8 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
       <ToDoInputMobile addTask={addTask}/>
       <TagFilter filterTasks={filterTasks}/>
       <hr></hr>
-      <ToDoPresetList></ToDoPresetList>
+      
+      <ToDoPresetList  addMultipleTasks={addMultipleTasks}></ToDoPresetList>
       <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask}/>
       <ClearTasksButton removeTasks={removeTasks}/>
       <p className="my-2 ml-2" style={{textAlign: "right"}}>{currentDateTime}</p>
@@ -180,8 +202,8 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
     <ToDoInput addTask={addTask}/>
     <TagFilter filterTasks={filterTasks}/>
 
-    
-    <ToDoPresetList></ToDoPresetList>
+    <ToDoPresetList addMultipleTasks={addMultipleTasks}></ToDoPresetList>
+    <SaveToDoPreset />
     <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask} />
 
 

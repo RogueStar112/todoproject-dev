@@ -11,7 +11,7 @@ import Col from 'react-bootstrap/Col';
 
 import SaveToDoPreset from './SaveToDoPreset.js';
 
-const ToDoPreset = ({presets}) => {
+const ToDoPreset = ({presets, addMultipleTasks}) => {
 
     const [isHovering, setIsHovering] = useState(false); 
     
@@ -26,7 +26,7 @@ const ToDoPreset = ({presets}) => {
  
     return (
         <>
-        <Badge bg="danger" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} className="mt-1" style={{cursor: "pointer", margin: "0 auto", padding: "20px"}} onClick={() => console.log('')}>
+        <Badge bg="danger" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} className="mt-1" style={{cursor: "pointer", margin: "0 auto", padding: "20px"}} onClick={() => addMultipleTasks(presets.tasks)}>
             {presets.name}
         </Badge>
 
