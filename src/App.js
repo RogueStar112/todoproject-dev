@@ -3,9 +3,12 @@ import './App.css';
 import ToDoInput from './components/todoinput/ToDoInput.js';
 import ToDoInputMobile from './components/todoinput/ToDoInputMobile';
 import ToDoOutput from './components/todooutput/ToDoOutput.js';
+
 import data from "./data.json";
+import presets from "./presets.json";
 
 import ToDoPreset from './components/todopresets/ToDoPreset';
+import ToDoPresetTitle from './components/todopresets/ToDoPresetTitle';
 import ToDoPresetList from './components/todopresets/ToDoPresetList';
 import SaveToDoPreset from './components/todopresets/SaveToDoPreset';
 
@@ -15,9 +18,11 @@ import ClearTasksButton from './components/todoinput/ClearTasksButton';
 
 import TagFilter from './components/todoinput/TagFilter.js';
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import { useLocalStorage } from './useLocalStorage';
-import { ConsoleSqlOutlined } from '@ant-design/icons';
 
 function App() {
 
@@ -58,14 +63,14 @@ useEffect(() => {
 
 const [ toDoList, setToDoList ] = useLocalStorage(data, []);
 
+const [ presetData, setPresetData ] = useState(presets, []);
+    
 
 //localStorage.clear();
 
 // thanks to: https://codesandbox.io/s/todo-list-hooks-ebfgw?file=/src/App.js:619-796
 
 const addMultipleTasks = (tasks) => {
-
-  console.log("TASKS", tasks);
 
   let copy = [...toDoList];
 
@@ -179,6 +184,38 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
     setToDoList(filtered);
   }
 
+  const addPreset = (name) => {
+    
+
+    console.log("TDL AP", toDoList)
+    let tasksToCopy = toDoList;
+
+    /*
+    toDoList.forEach((task, index) => {
+      tasksToCopy = [...tasksToCopy, { id: toDoList.length + index+1, task: task.task, time: task.time, tags: task.tags, complete: false, isSearched: false, subtasks: [], bg: task.bg }];
+    });
+    */
+
+    
+    let presetToCreate = [...presetData];
+    presetToCreate = [...presetData, { preset_id: presetData.length + 1, name: name, tasks: toDoList}];
+
+    
+
+    console.log("TASKS TO COPY", tasksToCopy);
+    console.log("PRESET TO CREATE", presetToCreate);
+    
+    setToDoList([]);
+    //setPresetData(copy);
+ 
+  }
+
+  const removePreset = (name) => {
+    return (
+      <></>
+    )
+  }
+
   // if a mobile device
   if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
   return (
@@ -187,7 +224,10 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
       <TagFilter filterTasks={filterTasks}/>
       <hr></hr>
       
-      <ToDoPresetList  addMultipleTasks={addMultipleTasks}></ToDoPresetList>
+      <ToDoPresetTitle></ToDoPresetTitle>
+      <ToDoPresetList  addMultipleTasks={addMultipleTasks} presets={presetData}></ToDoPresetList>
+      <SaveToDoPreset />
+
       <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask}/>
       <ClearTasksButton removeTasks={removeTasks}/>
       <p className="my-2 ml-2" style={{textAlign: "right"}}>{currentDateTime}</p>
@@ -199,15 +239,36 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
     return (
     
     <div className="app" style={{width: "70vw", margin: "0 auto"}}>
+
     <ToDoInput addTask={addTask}/>
-    <TagFilter filterTasks={filterTasks}/>
-
-    <ToDoPresetList addMultipleTasks={addMultipleTasks}></ToDoPresetList>
-    <SaveToDoPreset />
+    
     <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask} />
-
-
     <ClearTasksButton removeTasks={removeTasks}/>
+    
+    <hr className="mt-5"></hr>
+    <Container>
+    <Row>
+
+    <Col lg="6">
+      <TagFilter filterTasks={filterTasks}/>
+    
+    </Col>
+
+
+    <Col lg="6">
+      <ToDoPresetTitle></ToDoPresetTitle>
+    
+   
+
+      <div className="text-center">
+      <ToDoPresetList addMultipleTasks={addMultipleTasks} presets={presetData}></ToDoPresetList>
+      </div>
+      <SaveToDoPreset addPreset={addPreset} removePreset={removePreset}/>
+    </Col>
+    </Row>
+
+    </Container>  
+ 
     <p className="mt-5" style={{textAlign: "right"}}>{currentDateTime}</p>
     </div>
     )

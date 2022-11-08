@@ -26,10 +26,10 @@ const ToDoPreset = ({presets, addMultipleTasks}) => {
  
     return (
         <>
-        <Badge bg="danger" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} className="mt-1" style={{cursor: "pointer", margin: "0 auto", padding: "20px"}} onClick={() => addMultipleTasks(presets.tasks)}>
+        <Badge bg="danger" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} className="mx-3" style={{cursor: "pointer", margin: "0 auto", padding: "20px"}} onClick={() => addMultipleTasks(presets.tasks)}>
             {presets.name}
         </Badge>
-
+        
         {isHovering ? presets.tasks.map(preset_task => {
             return (
                 <p style={{color: `${preset_task.bg}`}}>{preset_task.task} {preset_task.time}</p>

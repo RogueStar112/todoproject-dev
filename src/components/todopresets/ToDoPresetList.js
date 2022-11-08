@@ -12,29 +12,14 @@ import Col from 'react-bootstrap/Col';
 
 import presets from "../../presets.json";
 
-const ToDoPresetList = ({addMultipleTasks}) => {
+const ToDoPresetList = ({addMultipleTasks, presets}) => {
 
-    const [presetData, setPresetData] = useState(presets);
-    
     return (
-        presetData.map((preset, index) => {
-        
-                if (index === 0) {
+        presets.map((preset) => {
+                
                 return (
-                    <div className="text-center">
-                    <h1>Presets</h1>
-                    <p>Add commonly used preset tasks!</p>
                     <ToDoPreset addMultipleTasks={addMultipleTasks} presets={preset} />
-                    </div>
                 )
-            } else {
-                 
-                return (
-                    <div className="text-center">
-                    <ToDoPreset addMultipleTasks={addMultipleTasks} presets={preset} />
-                    </div>
-                )
-            }
         })
         
     )

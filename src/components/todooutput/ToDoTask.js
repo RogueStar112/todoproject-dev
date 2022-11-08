@@ -46,7 +46,7 @@ const ToDoTask = ({todo, counter, toDoList, toggleTask}) => {
     }
 
     return (
-        <tr key={todo.id+todo.task} onClick={() => {toggleTask(todo.id); taskAlert()}} className={isFinished ? "text-decoration-line-through bg-info" : ""}>
+        <tr style={{cursor: "pointer"}} key={todo.id+todo.task} onClick={() => {toggleTask(todo.id); taskAlert()}} className={isFinished ? "text-decoration-line-through bg-info" : ""}>
             <td style={{backgroundColor: `${todo.bg}`}}>{todo.id}</td>
             <td>{todo.task}</td>
             <td style={{listStyle: "none"}}>{todo.tags.map(todo_tag => {
