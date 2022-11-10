@@ -45,6 +45,13 @@ const ToDoPreset = ({presets, addMultipleTasks}) => {
         <Badge bg="danger" className="mx-3" style={{cursor: "pointer", margin: "0 auto", padding: "20px"}} onClick={handleAddMultipleTasks}>
             {presets.name}
         </Badge>
+        
+        {isHovering ? presets.tasks.map(preset_task => {
+            return (
+                <p style={{color: `${preset_task.bg}`}}>{preset_task.task} {preset_task.time}</p>
+
+            );
+        }) : <></> }
         </>
     )
 

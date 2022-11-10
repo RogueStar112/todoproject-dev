@@ -23,6 +23,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import { useLocalStorage } from './useLocalStorage';
+import { daysToWeeks } from 'date-fns';
 
 function App() {
 
@@ -63,7 +64,7 @@ useEffect(() => {
 
 const [ toDoList, setToDoList ] = useLocalStorage(data, []);
 
-const [ presetData, setPresetData ] = useState(presets, []);
+const [ presetData, setPresetData ] = useLocalStorage(presets, []);
     
 
 //localStorage.clear();
@@ -75,6 +76,26 @@ const addMultipleTasks = (tasks) => {
   let copy = [...toDoList];
 
   tasks.forEach((task, index) => {
+    
+    let task_time_newDate = new Date(task.time)
+
+    let currentDate = new Date();
+
+    let task_time_getdate = task_time_newDate.getDate();
+
+    let oneDayAhead = task_time_newDate.setDate(task_time_getdate + 1);
+
+    if (task_time_newDate < Date.parse(currentDate)) {
+
+      task.time = new Date(task_time_getdate).toLocaleString('en-GB');
+    
+    } else {
+
+      task.time = new Date(oneDayAhead).toLocaleString('en-GB');
+ 
+    }
+    
+
     copy = [...copy, { id: toDoList.length + index+1, task: task.task, time: task.time, tags: task.tags, complete: false, isSearched: false, subtasks: [], bg: task.bg }];
   });
 
@@ -138,8 +159,10 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
   setToDoList(filtered);
 
-  
+
 }
+
+
 
 //console.log("TDL", toDoList);
 
@@ -203,17 +226,22 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
     
 
     console.log("TASKS TO COPY", tasksToCopy);
+
     console.log("PRESET TO CREATE", presetToCreate);
     
-    setToDoList([]);
+    setPresetData(presetToCreate);
     //setPresetData(copy);
  
   }
 
   const removePreset = (name) => {
-    return (
-      <></>
-    )
+
+    let presetsToRemove = presetData.filter(preset =>{
+        return preset.name != name;
+    });
+
+    setPresetData(presetsToRemove);
+
   }
 
   // if a mobile device
@@ -225,8 +253,8 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
       <hr></hr>
       
       <ToDoPresetTitle></ToDoPresetTitle>
-      <ToDoPresetList  addMultipleTasks={addMultipleTasks} presets={presetData}></ToDoPresetList>
-      <SaveToDoPreset />
+      <ToDoPresetList addMultipleTasks={addMultipleTasks} presets={presetData}></ToDoPresetList>
+      <SaveToDoPreset addPreset={addPreset} removePreset={removePreset} />
 
       <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask}/>
       <ClearTasksButton removeTasks={removeTasks}/>
@@ -249,6 +277,10 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
     <Container>
     <Row>
 
+    <Col lg="12">
+       <h3 className='text-center'>Advanced Features</h3>
+    </Col>
+
     <Col lg="6">
       <TagFilter filterTasks={filterTasks}/>
     
@@ -264,6 +296,7 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
       <ToDoPresetList addMultipleTasks={addMultipleTasks} presets={presetData}></ToDoPresetList>
       </div>
       <SaveToDoPreset addPreset={addPreset} removePreset={removePreset}/>
+
     </Col>
     </Row>
 

@@ -14,7 +14,7 @@ SaveToDoPreset algorithm
 
 */
 
-const SaveToDoPreset = ({addPreset, deletePreset}) => {
+const SaveToDoPreset = ({addPreset, removePreset}) => {
 
     const [presetInput, setPresetInput] = useState("");
     
@@ -29,8 +29,10 @@ const SaveToDoPreset = ({addPreset, deletePreset}) => {
         if (presetInput == "") {
             alert('You must give your preset a name')
         } else {
+            
         addPreset(presetInput)
         setPresetInput("");
+
         }
     }
 
@@ -41,7 +43,7 @@ const SaveToDoPreset = ({addPreset, deletePreset}) => {
             alert('You must give a preset name to delete')
         } else {
             
-            deletePreset(presetInput)
+            removePreset(presetInput)
             setPresetInput("");
 
         }
