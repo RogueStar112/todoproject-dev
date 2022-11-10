@@ -1,38 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import CustomFlexContainer from "./CustomFlexContainer";
 import ToDoInputField from "./ToDoInputField";
 
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
 
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+const TagFilter = ({ filterTasks }) => {
+  const [userInput_search, setUserInput_search] = useState("");
 
-const TagFilter = ({filterTasks}) => {
+  const handleChange_search = (e) => {
+    setUserInput_search(e.currentTarget.value);
+  };
 
-    const [userInput_search, setUserInput_search] = useState("");
-
-    const handleChange_search = (e) => {
-        setUserInput_search(e.currentTarget.value);
-    }
-
-
-    return (
-      <div style={{position: "relative", height: "100%"}}>
+  return (
+    <div style={{ position: "relative", height: "100%" }}>
       <h3 className="text-center mt-3">Filter tags</h3>
       <p className="text-center">Highlight tasks with a particular tag!</p>
-      <Form className="mt-5" style={{margin: "0 auto"}}>
-        <InputGroup style={{position: "absolute", bottom: "17px"}}>
-        <ToDoInputField value={userInput_search} width_val={"90%"} onChange={handleChange_search} label="filter by tag"></ToDoInputField>
+      <Form className="mt-5" style={{ margin: "0 auto" }}>
+        <InputGroup style={{ position: "absolute", bottom: "17px" }}>
+          <ToDoInputField
+            value={userInput_search}
+            width_val={"90%"}
+            onChange={handleChange_search}
+            label="filter by tag"
+          ></ToDoInputField>
 
-        <Button onClick={() => filterTasks(userInput_search)} style={{width: "100% !important"}}>🔍</Button>
+          <Button
+            onClick={() => filterTasks(userInput_search)}
+            style={{ width: "100% !important" }}
+          >
+            🔍
+          </Button>
         </InputGroup>
       </Form>
-      </div>
-    )
-}
+    </div>
+  );
+};
 
 export default TagFilter;
