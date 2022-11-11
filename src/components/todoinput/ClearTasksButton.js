@@ -11,7 +11,7 @@ const ClearTasksButton = ({removeTasks}) => {
 
     return (
         <div>
-        <Button variant="success" onClick={() => removeTasks()} style={{width: "100%"}}>Clear Tasks</Button>
+        <Button variant="success" onClick={() => removeTasks()} style={{width: "100%"}}>Clear Marked Tasks</Button>
         </div>
     )
 } 

@@ -6,6 +6,7 @@ import ToDoOutput from './components/todooutput/ToDoOutput.js';
 
 import data from "./data.json";
 import presets from "./presets.json";
+import statistics from "./statistics.json";
 
 import ToDoPreset from './components/todopresets/ToDoPreset';
 import ToDoPresetTitle from './components/todopresets/ToDoPresetTitle';
@@ -18,12 +19,25 @@ import ClearTasksButton from './components/todoinput/ClearTasksButton';
 
 import TagFilter from './components/todoinput/TagFilter.js';
 
+import ToDoStatistics from './components/todooutput/ToDoStatistics';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import { useLocalStorage } from './useLocalStorage';
 import { daysToWeeks } from 'date-fns';
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 
 function App() {
 
@@ -65,6 +79,8 @@ useEffect(() => {
 const [ toDoList, setToDoList ] = useLocalStorage(data, []);
 
 const [ presetData, setPresetData ] = useLocalStorage(presets, []);
+
+const [ statisticsData, setStatisticsData ] = useLocalStorage(statistics, []);
     
 
 //localStorage.clear();
@@ -96,7 +112,7 @@ const addMultipleTasks = (tasks) => {
     }
     
 
-    copy = [...copy, { id: toDoList.length + index+1, task: task.task, time: task.time, tags: task.tags, complete: false, isSearched: false, subtasks: [], bg: task.bg }];
+    copy = [...copy, { id: toDoList.length + index+1, task: task.task, time: task.time, tags: task.tags, complete: false, onTime: true, isSearched: false, subtasks: [], bg: task.bg }];
   });
 
   setToDoList(copy);
@@ -133,7 +149,7 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
 
   let copy = [...toDoList];
-  copy = [...copy, { id: toDoList.length + 1, task: userInput_task, time: userInput_date, tags: userInput_tags, complete: false, isSearched: false, subtasks: [], bg: userInput_bg }];
+  copy = [...copy, { id: toDoList.length + 1, task: userInput_task, time: userInput_date, tags: userInput_tags, complete: false, onTime: true, isSearched: false, subtasks: [], bg: userInput_bg }];
   setToDoList(copy);
   
   //console.log("STDL", toDoList);
@@ -153,10 +169,53 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
  const removeTasks = () => {
 
+
+
   let filtered = toDoList.filter(task => {
       return !task.complete; 
   });
 
+  // Filtered True. Returns a Filter of tasks that are complete. (highlighted in light blue)
+  let filteredTrue = toDoList.filter(task => {
+    return task.complete === true;
+  })
+
+  let newStatisticsData = statisticsData;
+
+
+  let statisticsAdd = filteredTrue.forEach(task => {
+    task.tags.forEach(tag => {
+
+      console.log("TASK ON TIME?", task.onTime);
+      console.log("SD NULL?" , statisticsData[tag] == null)
+      if (statisticsData[tag] == null) {
+        statisticsData[tag] = {};
+
+        if (task.onTime == true) {
+          statisticsData[tag]['complete'] = 1
+          statisticsData[tag]['onTime'] = 1;
+        } else {
+          statisticsData[tag]['complete'] = 1;
+        }
+      } else {
+
+        if (task.onTime == true) {
+          statisticsData[tag]['complete'] += 1
+          statisticsData[tag]['onTime'] += 1;
+        } else {
+          statisticsData[tag]['complete'] += 1;
+        }
+      }
+    })
+    //newStatisticsData = {...statisticsData, labels: {tagName: }, data: []}
+  })
+
+  //setStatisticsData([])
+  setStatisticsData(newStatisticsData);
+
+
+
+  
   setToDoList(filtered);
 
 
@@ -258,6 +317,8 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
       <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask}/>
       <ClearTasksButton removeTasks={removeTasks}/>
+
+      <ToDoStatistics data={statisticsData}/>
       <p className="my-2 ml-2" style={{textAlign: "right"}}>{currentDateTime}</p>
     </div>
   );
@@ -270,24 +331,45 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
     <ToDoInput addTask={addTask}/>
     
-    <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask} />
-    <ClearTasksButton removeTasks={removeTasks}/>
     
-    <hr className="mt-5"></hr>
     <Container>
+
     <Row>
 
-    <Col lg="12">
-       <h3 className='text-center'>Advanced Features</h3>
+    <Col lg="6" style={{margin: "0 auto"}}>
+    <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask} />
+    <ClearTasksButton removeTasks={removeTasks}/>
     </Col>
 
     <Col lg="6">
+
+      <h3 className="text-center mt-3 superbold">Statistics</h3>
+      <p className="mt-3 text-center">Looks at the tasks I've completed!</p>
+
+      <ToDoStatistics data={statisticsData}/>
+    </Col>
+
+    </Row>
+ 
+    </Container>  
+
+    
+    <Container>
+    <Row>
+
+    <hr className="mt-3"></hr>
+
+    <Col lg="12">
+       <h3 className='text-center mt-3 superbold underliner'>Advanced Features</h3>
+    </Col>
+
+    <Col lg="6" md="6">
       <TagFilter filterTasks={filterTasks}/>
     
     </Col>
 
 
-    <Col lg="6">
+    <Col lg="6" md="6">
       <ToDoPresetTitle></ToDoPresetTitle>
     
    
@@ -299,9 +381,9 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
     </Col>
     </Row>
+    
+    </Container>
 
-    </Container>  
- 
     <p className="mt-5" style={{textAlign: "right"}}>{currentDateTime}</p>
     </div>
     )

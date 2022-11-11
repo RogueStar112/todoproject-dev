@@ -24,6 +24,7 @@ const ToDoTask = ({todo, counter, toDoList, toggleTask}) => {
         
         if (dateValue/1000 < dueTimeInSeconds) {
             setisDueNow(true);
+            todo.onTime = false;
         }
 
 
@@ -46,13 +47,19 @@ const ToDoTask = ({todo, counter, toDoList, toggleTask}) => {
     }
 
     return (
-        <tr style={{cursor: "pointer"}} key={todo.id+todo.task} onClick={() => {toggleTask(todo.id); taskAlert()}} className={isFinished ? "text-decoration-line-through bg-info" : ""}>
+        <tr style={{cursor: "pointer", maxHeight: "64px"}} key={todo.id+todo.task} onClick={() => {toggleTask(todo.id); taskAlert()}} className={isFinished ? "text-decoration-line-through bg-info" : ""}>
             <td style={{backgroundColor: `${todo.bg}`}}>{todo.id}</td>
-            <td>{todo.task}</td>
-            <td style={{listStyle: "none"}}>{todo.tags.map(todo_tag => {
+            <td className="d-flex" style={{position: "relative", justifyContent: "space-between", width: "100%", maxHeight: "150%"}}>
+                <div className="" style={{textAlign: "justify"}}>{todo.task}<br />{todo.tags.map(todo_tag => {
+                {return (<Badge className={todo.isSearched ? "bg-success mx-1" : "mx-1"} bg="primary">{todo_tag}</Badge>);}
+            })}</div><div style={{color: "red", wordWrap: "normal", display: "inline-block", lineHeight: "48px", }}>⏰ {isDueNow ? "NOW" : dateDisplay.slice(0, -3)}</div></td>
+            <td className="d-none actions-column">
+
+            </td>
+            <td className="d-none tag-column" style={{listStyle: "none"}}>{todo.tags.map(todo_tag => {
                 {return (<Badge className={todo.isSearched ? "bg-success mx-1" : "mx-1"} bg="primary">{todo_tag}</Badge>);}
             })}</td>
-            <td>{isDueNow ? "NOW" : dateDisplay.slice(0, -3)}</td>
+            <td className="d-none due-column">{isDueNow ? "NOW" : dateDisplay.slice(0, -3)}</td>
         </tr>
     );
 }

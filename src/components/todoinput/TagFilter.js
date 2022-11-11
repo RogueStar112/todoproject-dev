@@ -22,13 +22,13 @@ const TagFilter = ({filterTasks}) => {
 
     return (
       <div style={{position: "relative", height: "100%"}}>
-      <h3 className="text-center mt-3">Filter tags</h3>
+      <h4 className="text-center mt-3">Filter tags</h4>
       <p className="text-center">Highlight tasks with a particular tag!</p>
       <Form className="mt-5" style={{margin: "0 auto"}}>
         <InputGroup style={{position: "absolute", bottom: "17px"}}>
-        <ToDoInputField value={userInput_search} width_val={"90%"} onChange={handleChange_search} label="filter by tag"></ToDoInputField>
+        <ToDoInputField value={userInput_search} width_val={"70%"} onChange={handleChange_search} label="filter by tag"></ToDoInputField>
 
-        <Button onClick={() => filterTasks(userInput_search)} style={{width: "100% !important"}}>🔍</Button>
+        <Button onClick={() => filterTasks(userInput_search)} style={{width: "30%"}}>🔍</Button>
         </InputGroup>
       </Form>
       </div>

@@ -29,7 +29,7 @@ const SaveToDoPreset = ({addPreset, removePreset}) => {
         if (presetInput == "") {
             alert('You must give your preset a name')
         } else {
-            
+
         addPreset(presetInput)
         setPresetInput("");
 
@@ -56,9 +56,9 @@ const SaveToDoPreset = ({addPreset, removePreset}) => {
         <InputGroup>
         <Form.Label size="sm" className="mt-3" style={{position: "absolute", bottom:"30px", display: "", fontSize: "10px"}}>Preset name</Form.Label>
 
-        <Form.Control value={presetInput} onChange={handleChange} className="" style={{width: "60%", margin: "0 auto"}} autoComplete="off" placeholder="test"></Form.Control>
-            <Button aria-label="save-preset-btn" onClick={handleSubmit_save}>💾</Button>
-            <Button aria-label="delete-preset-btn" variant="danger" onClick={handleSubmit_delete}>🗑️</Button>
+        <Form.Control value={presetInput} onChange={handleChange} className="" style={{width: "70%", margin: "0 auto"}} autoComplete="off" placeholder="test"></Form.Control>
+            <Button aria-label="save-preset-btn" style={{width: "15%"}} onClick={handleSubmit_save}>💾</Button>
+            <Button aria-label="delete-preset-btn" style={{width: "15%"}} variant="danger" onClick={handleSubmit_delete}>🗑️</Button>
         </InputGroup>
         </Form>
         </div>
