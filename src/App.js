@@ -167,7 +167,7 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
    setToDoList(mapped)
  }
 
- const removeTasks = () => {
+ const removeTasks = (addStatistics) => {
 
 
 
@@ -176,43 +176,45 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
   });
 
   // Filtered True. Returns a Filter of tasks that are complete. (highlighted in light blue)
-  let filteredTrue = toDoList.filter(task => {
-    return task.complete === true;
-  })
-
-  let newStatisticsData = statisticsData;
-
-
-  let statisticsAdd = filteredTrue.forEach(task => {
-    task.tags.forEach(tag => {
-
-      console.log("TASK ON TIME?", task.onTime);
-      console.log("SD NULL?" , statisticsData[tag] == null)
-      if (statisticsData[tag] == null) {
-        statisticsData[tag] = {};
-
-        if (task.onTime == true) {
-          statisticsData[tag]['complete'] = 1
-          statisticsData[tag]['onTime'] = 1;
-        } else {
-          statisticsData[tag]['complete'] = 1;
-        }
-      } else {
-
-        if (task.onTime == true) {
-          statisticsData[tag]['complete'] += 1
-          statisticsData[tag]['onTime'] += 1;
-        } else {
-          statisticsData[tag]['complete'] += 1;
-        }
-      }
-    })
-    //newStatisticsData = {...statisticsData, labels: {tagName: }, data: []}
-  })
 
   //setStatisticsData([])
-  setStatisticsData(newStatisticsData);
 
+  if (addStatistics === true) {
+    let filteredTrue = toDoList.filter(task => {
+      return task.complete === true;
+    })
+    
+    let newStatisticsData = statisticsData;
+
+    let statisticsAdd = filteredTrue.forEach(task => {
+      task.tags.forEach(tag => {
+
+        if (statisticsData[tag] == null) {
+          statisticsData[tag] = {};
+
+          if (task.onTime == true) {
+            statisticsData[tag]['complete'] = 1
+            statisticsData[tag]['onTime'] = 1;
+          } else {
+            statisticsData[tag]['complete'] = 1;
+          }
+        } else {
+
+          if (task.onTime == true) {
+            statisticsData[tag]['complete'] += 1
+            statisticsData[tag]['onTime'] += 1;
+          } else {
+            statisticsData[tag]['complete'] += 1;
+          }
+        }
+      })
+      //newStatisticsData = {...statisticsData, labels: {tagName: }, data: []}
+    })
+    
+    setStatisticsData(newStatisticsData);
+  } else {
+    // do nothing
+  }
 
 
   

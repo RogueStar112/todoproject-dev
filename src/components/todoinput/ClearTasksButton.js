@@ -4,15 +4,20 @@ import Container from 'react-bootstrap/Container';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 
+import InputGroup from 'react-bootstrap/InputGroup';
+
 
 
 const ClearTasksButton = ({removeTasks}) => {
 
 
     return (
-        <div>
-        <Button variant="success" onClick={() => removeTasks()} style={{width: "100%"}}>Clear Marked Tasks</Button>
-        </div>
+
+        <InputGroup>
+        <Button variant="success" onClick={() => removeTasks(true)} style={{width: "70%"}}>Publish Marked Tasks</Button>
+        <Button variant="danger" onClick={() => removeTasks(false)} style={{width: "30%"}}>Discard Marked Tasks</Button>
+        </InputGroup>
+
     )
 } 
 
