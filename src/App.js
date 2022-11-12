@@ -211,7 +211,7 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
       //newStatisticsData = {...statisticsData, labels: {tagName: }, data: []}
     })
     
-    setStatisticsData(newStatisticsData);
+    setStatisticsData(statisticsAdd);
   } else {
     // do nothing
   }
