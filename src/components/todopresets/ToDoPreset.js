@@ -26,9 +26,14 @@ const ToDoPreset = ({presets, addMultipleTasks}) => {
 
     const handleAddMultipleTasks = () => {
         let tasksToDisplay = "You will add the following tasks\n\n"
-
+        
+        let presetTaskTime_toLocaleString = null;
         presets.tasks.forEach(preset_task => {
-            tasksToDisplay = tasksToDisplay + `${preset_task.task} ${preset_task.time}\n`
+            
+            let presetTaskTime = new Date(`${preset_task.time}`)
+            presetTaskTime = presetTaskTime.toLocaleString()
+
+            tasksToDisplay = tasksToDisplay + `${preset_task.task} ${presetTaskTime}\n`
         })
 
         tasksToDisplay += `\nAre you sure about this?`

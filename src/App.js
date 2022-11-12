@@ -109,15 +109,15 @@ const addMultipleTasks = (tasks) => {
 
     let task_time_getdate = task_time_newDate.getDate();
 
-    let oneDayAhead = task_time_newDate.setDate(task_time_getdate + 1);
+    //let oneDayAhead = task_time_newDate.setDate(task_time_getdate + 1);
 
     if (task_time_newDate < Date.parse(currentDate)) {
 
-      task.time = new Date(task_time_getdate).toLocaleString('en-GB');
+      task.time = new Date(task_time_getdate);
     
     } else {
 
-      task.time = new Date(oneDayAhead).toLocaleString('en-GB');
+      //task.time = new Date(oneDayAhead);
  
     }
     
