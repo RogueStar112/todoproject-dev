@@ -256,7 +256,12 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 }
 
 const clearStatistics = () => {
-  setStatisticsData({});
+
+  choice = "Are you sure you want to clear the statistics?"
+
+  if (window.confirm(choice)) {
+    setStatisticsData({});
+  }
 }
 
 
