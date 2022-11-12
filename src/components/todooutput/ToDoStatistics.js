@@ -1,4 +1,7 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
+
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,6 +14,8 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+
+
 
 ChartJS.register(
     CategoryScale,
@@ -42,7 +47,7 @@ export const options = {
   };
 
 
-const ToDoStatistics = ({data}) => {
+const ToDoStatistics = ({data, clearStatistics}) => {
 
     const labels = Object.keys(data);
 
@@ -77,7 +82,11 @@ const ToDoStatistics = ({data}) => {
       };
 
     return (
+        <>
         <Bar options={options} data={data_to_add} />
+        <Button variant="danger" onClick={() => clearStatistics()} style={{width: "100%"}}>Clear Statistics</Button>
+        </>
+
     )
 }
 

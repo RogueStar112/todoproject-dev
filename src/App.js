@@ -76,12 +76,22 @@ useEffect(() => {
 }, [counter]);  
 
 
-const [ toDoList, setToDoList ] = useLocalStorage(data, []);
+const [ toDoList, setToDoList ] = useLocalStorage('data', data || []);
 
-const [ presetData, setPresetData ] = useLocalStorage(presets, []);
+const [ presetData, setPresetData ] = useLocalStorage('presets', presets || []);
 
-const [ statisticsData, setStatisticsData ] = useLocalStorage(statistics, []);
-    
+let [ statisticsData, setStatisticsData ] = useLocalStorage('statistics', statistics || {});
+
+/*
+var i;
+
+
+console.log("local storage");
+
+for (i = 0; i < localStorage.length; i++)   {
+    console.log(localStorage.key(i) + "=[" + localStorage.getItem(localStorage.key(i)) + "]");
+}
+*/
 
 //localStorage.clear();
 
@@ -176,42 +186,64 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
   });
 
   // Filtered True. Returns a Filter of tasks that are complete. (highlighted in light blue)
+  let filteredTrue = toDoList.filter(task => {
+    return task.complete === true;
+  })
 
   //setStatisticsData([])
 
   if (addStatistics === true) {
-    let filteredTrue = toDoList.filter(task => {
-      return task.complete === true;
-    })
-    
-    let newStatisticsData = statisticsData;
 
-    let statisticsAdd = filteredTrue.forEach(task => {
+    console.log("FILTERED TRUE", filteredTrue);
+    //let newStatisticsData = []
+
+
+    let newStatisticsData = statisticsData ? statisticsData : {};
+
+    filteredTrue.forEach(task => {
       task.tags.forEach(tag => {
 
-        if (statisticsData[tag] == null) {
-          statisticsData[tag] = {};
+        if (newStatisticsData[tag] == null) {
+          newStatisticsData[tag] = {};
 
           if (task.onTime == true) {
-            statisticsData[tag]['complete'] = 1
-            statisticsData[tag]['onTime'] = 1;
+            newStatisticsData[tag]['complete'] = 1;
+            newStatisticsData[tag]['onTime'] = 1;
           } else {
-            statisticsData[tag]['complete'] = 1;
+            newStatisticsData[tag]['complete'] = 1;
           }
         } else {
 
           if (task.onTime == true) {
-            statisticsData[tag]['complete'] += 1
-            statisticsData[tag]['onTime'] += 1;
+            newStatisticsData[tag]['complete'] += 1;
+            newStatisticsData[tag]['onTime'] += 1;
           } else {
-            statisticsData[tag]['complete'] += 1;
+            newStatisticsData[tag]['complete'] += 1;
           }
         }
       })
-      //newStatisticsData = {...statisticsData, labels: {tagName: }, data: []}
-    })
+
     
-    setStatisticsData(statisticsAdd);
+    
+    //newStatisticsData.push(statisticsData);
+    })
+      //newStatisticsData = {...statisticsData, labels: {tagName: }, data: []}
+
+
+    //statisticsData.push()
+
+
+
+    console.log("NSDATA", newStatisticsData);
+
+    statisticsData = {...newStatisticsData};
+
+    console.log(statisticsData);
+    
+    setStatisticsData(statisticsData);
+
+    //console.log("NSDATA AFTER", newStatisticsData)
+    
   } else {
     // do nothing
   }
@@ -221,6 +253,10 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
   setToDoList(filtered);
 
 
+}
+
+const clearStatistics = () => {
+  setStatisticsData({});
 }
 
 
@@ -320,7 +356,7 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
       <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask}/>
       <ClearTasksButton removeTasks={removeTasks}/>
 
-      <ToDoStatistics data={statisticsData}/>
+      <ToDoStatistics data={statisticsData} clearStatistics={clearStatistics}/>
       <p className="my-2 ml-2" style={{textAlign: "right"}}>{currentDateTime}</p>
     </div>
   );
@@ -348,7 +384,7 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
       <h3 className="text-center mt-3 superbold">Statistics</h3>
       <p className="mt-3 text-center">Looks at the tasks I've completed!</p>
 
-      <ToDoStatistics data={statisticsData}/>
+      <ToDoStatistics data={statisticsData} clearStatistics={clearStatistics}/>
     </Col>
 
     </Row>
