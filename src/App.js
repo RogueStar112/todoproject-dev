@@ -390,7 +390,7 @@ const clearStatistics_history = () => {
       <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask}/>
       <ClearTasksButton removeTasks={removeTasks}/>
 
-      <ToDoStatistics data={statisticsData} clearStatistics={clearStatistics}/>
+      <ToDoStatistics data={statisticsData} clearStatistics={clearStatistics} clearStatistics_history={clearStatistics_history} taskLog={toDoListHistory}/>
       <p className="my-2 ml-2" style={{textAlign: "right"}}>{currentDateTime}</p>
     </div>
   );
