@@ -1,6 +1,13 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
+import React, { useState, useEffect } from 'react';
 
+import Button from 'react-bootstrap/Button';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+
+import Table from 'react-bootstrap/Table';
+import Badge from 'react-bootstrap/Badge';
+
+import ToDoTaskHistory from "./ToDoTaskHistory.js";
 
 import {
   Chart as ChartJS,
@@ -47,7 +54,7 @@ export const options = {
   };
 
 
-const ToDoStatistics = ({data, clearStatistics}) => {
+const ToDoStatistics = ({data, clearStatistics, clearStatistics_history, taskLog}) => {
 
     const labels = Object.keys(data);
 
@@ -83,8 +90,51 @@ const ToDoStatistics = ({data, clearStatistics}) => {
 
     return (
         <>
+        <Tabs defaultActiveKey="bar_frequency" id="statistics-tabs" className="mb-3">
+        
+        <Tab eventKey="bar_frequency" title="Tag Frequency">
         <Bar options={options} data={data_to_add} />
         <Button variant="danger" onClick={() => clearStatistics()} style={{width: "100%"}}>Clear Statistics</Button>
+        </Tab>
+
+        <Tab eventKey="task_log" title="Task Log">
+            <h4 className="text-center">To Do List - Most recently completed tasks</h4>
+
+            <Table>
+
+                <thead className="mt-3">
+                    <tr>
+                        <th style={{maxWidth: "10%"}}>ID</th>
+                        <th style={{width: "90%", textAlign: "left"}}>Task</th>
+                    </tr>
+                </thead> 
+
+                <tbody>               
+                {taskLog.map(taskCollection => {
+                    return (
+                        <tr>
+                            <td>{taskCollection.history_id}</td>
+                            <td>{taskCollection.data.map(task => {
+                               return (
+                                <>
+                                {<ToDoTaskHistory key={task.id+task.task} todo={task} />}
+                                </>
+                               ) 
+                            })}
+
+                            Finished at {taskCollection.timeLogged.slice(0, -3)}
+                            </td>
+                        </tr>
+                    )
+                })}
+                </tbody>
+            </Table>
+
+            <Button variant="danger" onClick={() => clearStatistics_history()} style={{width: "100%"}}>Clear History</Button>
+        </Tab>
+
+        </Tabs>
+
         </>
 
     )

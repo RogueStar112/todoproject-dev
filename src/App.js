@@ -78,6 +78,8 @@ useEffect(() => {
 
 const [ toDoList, setToDoList ] = useLocalStorage('data', data || []);
 
+let [ toDoListHistory, setToDoListHistory ] = useLocalStorage('data_history', data || []);
+
 const [ presetData, setPresetData ] = useLocalStorage('presets', presets || []);
 
 let [ statisticsData, setStatisticsData ] = useLocalStorage('statistics', statistics || {});
@@ -126,15 +128,17 @@ const addMultipleTasks = (tasks) => {
   });
 
   setToDoList(copy);
- 
+  
+  //setToDoListHistory(copy);
+
 }
 
 const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) => {
 
   //console.log('FUNCTION CALL')
 
-  if (userInput_tags == null) {
-    userInput_tags = ['misc'];
+  if (userInput_tags === "") {
+    userInput_tags = ['untagged'];
   }
 
   /*
@@ -161,6 +165,8 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
   let copy = [...toDoList];
   copy = [...copy, { id: toDoList.length + 1, task: userInput_task, time: userInput_date, tags: userInput_tags, complete: false, onTime: true, isSearched: false, subtasks: [], bg: userInput_bg }];
   setToDoList(copy);
+
+  //setToDoListHistory(copy);
   
   //console.log("STDL", toDoList);
   
@@ -190,6 +196,8 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
     return task.complete === true;
   })
 
+
+
   //setStatisticsData([])
 
   if (addStatistics === true) {
@@ -197,6 +205,13 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
     console.log("FILTERED TRUE", filteredTrue);
     //let newStatisticsData = []
 
+    let newHistoryData = toDoListHistory ? toDoListHistory : [];
+
+    let currentTime = new Date();
+
+    currentTime = currentTime.toLocaleString()
+
+    newHistoryData = [...toDoListHistory, {history_id: toDoListHistory.length + 1, timeLogged: currentTime, data: filteredTrue}];
 
     let newStatisticsData = statisticsData ? statisticsData : {};
 
@@ -234,12 +249,14 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
 
 
-    console.log("NSDATA", newStatisticsData);
+    // console.log("NSDATA", newStatisticsData);
 
     statisticsData = {...newStatisticsData};
 
-    console.log(statisticsData);
-    
+    // console.log(statisticsData);
+
+    console.log('TDH HISTORY', newHistoryData)
+    setToDoListHistory(newHistoryData);
     setStatisticsData(statisticsData);
 
     //console.log("NSDATA AFTER", newStatisticsData)
@@ -248,6 +265,9 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
     // do nothing
   }
 
+  //setToDoListHistory(filtered);
+
+  //toDoListHistory = {...filtered};
 
   
   setToDoList(filtered);
@@ -264,6 +284,15 @@ const clearStatistics = () => {
   }
 }
 
+const clearStatistics_history = () => {
+
+  let choice = "Are you sure you want to clear your task history?"
+
+  if (window.confirm(choice)) {
+    setToDoListHistory([]);
+  }
+}
+
 
 
 //console.log("TDL", toDoList);
@@ -274,7 +303,7 @@ const clearStatistics = () => {
 
     let filtered = filtered_list.map((task) => {
 
-      console.log("TTAGS", task.tags);
+      //console.log("TTAGS", task.tags);
 
       let isValidated = false
       task.tags.map(
@@ -312,7 +341,7 @@ const clearStatistics = () => {
   const addPreset = (name) => {
     
 
-    console.log("TDL AP", toDoList)
+    //console.log("TDL AP", toDoList)
     let tasksToCopy = toDoList;
 
     /*
@@ -327,9 +356,9 @@ const clearStatistics = () => {
 
     
 
-    console.log("TASKS TO COPY", tasksToCopy);
+    //console.log("TASKS TO COPY", tasksToCopy);
 
-    console.log("PRESET TO CREATE", presetToCreate);
+    //console.log("PRESET TO CREATE", presetToCreate);
     
     setPresetData(presetToCreate);
     //setPresetData(copy);
@@ -379,7 +408,7 @@ const clearStatistics = () => {
 
     <Row>
 
-    <Col lg="6" style={{margin: "0 auto"}}>
+    <Col lg="6" style={{margin: "0 auto", position: "relative"}}>
     <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask} />
     <ClearTasksButton removeTasks={removeTasks}/>
     </Col>
@@ -387,9 +416,9 @@ const clearStatistics = () => {
     <Col lg="6">
 
       <h3 className="text-center mt-3 superbold">Statistics</h3>
-      <p className="mt-3 text-center">Looks at the tasks I've completed!</p>
+      <p className="mt-3 text-center">Click on the tabs below to get various stats!</p>
 
-      <ToDoStatistics data={statisticsData} clearStatistics={clearStatistics}/>
+      <ToDoStatistics data={statisticsData} clearStatistics={clearStatistics} clearStatistics_history={clearStatistics_history} taskLog={toDoListHistory}/>
     </Col>
 
     </Row>
