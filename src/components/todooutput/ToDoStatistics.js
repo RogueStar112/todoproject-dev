@@ -90,7 +90,9 @@ const ToDoStatistics = ({data, clearStatistics, clearStatistics_history, taskLog
 
     return (
         <>
-        <Tabs defaultActiveKey="bar_frequency" id="statistics-tabs" className="mb-3">
+         <h3 className="text-center mt-3 superbold">Statistics</h3>
+         <p className="mt-3 text-center">Click on the tabs below to get various stats!</p>
+        <Tabs defaultActiveKey="bar_frequency" id="statistics-tabs" className="mb-3" fill>
         
         <Tab eventKey="bar_frequency" title="Tag Frequency">
         <Bar options={options} data={data_to_add} />
@@ -98,7 +100,7 @@ const ToDoStatistics = ({data, clearStatistics, clearStatistics_history, taskLog
         </Tab>
 
         <Tab eventKey="task_log" title="Task Log">
-            <h4 className="text-center">To Do List - Most recently completed tasks</h4>
+            <h4 className="text-center">Most recently completed tasks</h4>
 
             <Table>
 
@@ -110,7 +112,7 @@ const ToDoStatistics = ({data, clearStatistics, clearStatistics_history, taskLog
                 </thead> 
 
                 <tbody>               
-                {taskLog.map(taskCollection => {
+                {[...taskLog].reverse().map(taskCollection => {
                     return (
                         <tr>
                             <td>{taskCollection.history_id}</td>

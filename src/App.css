@@ -60,3 +60,7 @@ body {
 .superbold {
   font-weight: 600;
 }
+
+.mobileInputContainer_threeFields input {
+  margin-top: 20px;
+}

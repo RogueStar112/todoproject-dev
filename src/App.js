@@ -18,12 +18,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ClearTasksButton from './components/todoinput/ClearTasksButton';
 
 import TagFilter from './components/todoinput/TagFilter.js';
+import TagFilterMobile from './components/todoinput/TagFilterMobile.js';
 
 import ToDoStatistics from './components/todooutput/ToDoStatistics';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 import { useLocalStorage } from './useLocalStorage';
 import { daysToWeeks } from 'date-fns';
@@ -376,22 +380,44 @@ const clearStatistics_history = () => {
   }
 
   // if a mobile device
-  if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+  if(/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
   return (
     <div className="app" style={{width: "95vw", margin: "0 auto"}}>
+      
+      <h1 className="text-center superbold underliner mt-3" style={{color: "navyblue"}}>Todo App</h1>
+      <Tabs defaultActiveKey="mobile_main" id="mobile_app" className="mt-5" fill>
+
+      <Tab eventKey="mobile_main" title="Home 🏠">
       <ToDoInputMobile addTask={addTask}/>
-      <TagFilter filterTasks={filterTasks}/>
+     
       <hr></hr>
       
-      <ToDoPresetTitle></ToDoPresetTitle>
-      <ToDoPresetList addMultipleTasks={addMultipleTasks} presets={presetData}></ToDoPresetList>
-      <SaveToDoPreset addPreset={addPreset} removePreset={removePreset} />
+      
 
       <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask}/>
       <ClearTasksButton removeTasks={removeTasks}/>
 
-      <ToDoStatistics data={statisticsData} clearStatistics={clearStatistics} clearStatistics_history={clearStatistics_history} taskLog={toDoListHistory}/>
       <p className="my-2 ml-2" style={{textAlign: "right"}}>{currentDateTime}</p>
+      </Tab>
+
+      <Tab eventKey="mobile_advanced" title="Advanced ⚙️">
+
+      <TagFilterMobile filterTasks={filterTasks}/>
+
+
+      <ToDoPresetTitle></ToDoPresetTitle>
+      <ToDoPresetList addMultipleTasks={addMultipleTasks} presets={presetData}></ToDoPresetList>
+      <SaveToDoPreset addPreset={addPreset} removePreset={removePreset} />
+
+      </Tab>
+
+      <Tab eventKey="mobile_statistics" title="Statistics 📈">
+      
+      <ToDoStatistics data={statisticsData} clearStatistics={clearStatistics} clearStatistics_history={clearStatistics_history} taskLog={toDoListHistory}/>
+
+
+      </Tab>
+      </Tabs>
     </div>
   );
 
@@ -414,10 +440,6 @@ const clearStatistics_history = () => {
     </Col>
 
     <Col lg="6">
-
-      <h3 className="text-center mt-3 superbold">Statistics</h3>
-      <p className="mt-3 text-center">Click on the tabs below to get various stats!</p>
-
       <ToDoStatistics data={statisticsData} clearStatistics={clearStatistics} clearStatistics_history={clearStatistics_history} taskLog={toDoListHistory}/>
     </Col>
 
