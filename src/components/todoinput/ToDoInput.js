@@ -11,6 +11,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 
 function ToDoInput( {addTask} ) {
 
@@ -61,6 +63,10 @@ function ToDoInput( {addTask} ) {
     <h1 className="text-center mt-3 superbold underliner">Todo App</h1>
 
     <h3 className="text-center superbold">Task creation</h3>
+
+    <Tabs defaultActiveKey="task_creation_main" id="task_creation_main" className="" >
+
+    <Tab eventKey="task_creation_main" title="Home 🏠">
     <Form>
     <Container className="mt-3">
     <Row>
@@ -86,6 +92,12 @@ function ToDoInput( {addTask} ) {
         </Row>
     </Container>
     </Form>
+    </Tab>
+
+    <Tab eventKey="task_creation_byTag" id="task_creation_byTag" title="By tag">
+    </Tab>
+
+    </Tabs>
 
     </>
   );

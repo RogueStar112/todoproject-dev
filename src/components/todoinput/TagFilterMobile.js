@@ -22,7 +22,7 @@ const TagFilterMobile = ({filterTasks}) => {
 
     return (
       <div style={{position: "relative", height: "100%"}}>
-      <h4 className="text-center mt-3">Filter tags</h4>
+      <h4 className="text-center pt-3">Filter tags</h4>
       <p className="text-center">Highlight tasks with a particular tag!</p>
       <Form className="mt-5" style={{margin: "0 auto"}}>
         <InputGroup>

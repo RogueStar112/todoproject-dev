@@ -57,8 +57,8 @@ const SaveToDoPreset = ({addPreset, removePreset}) => {
         <Form.Label size="sm" className="mt-3" style={{position: "absolute", bottom:"30px", display: "", fontSize: "10px"}}>Preset name</Form.Label>
 
         <Form.Control value={presetInput} onChange={handleChange} className="" style={{width: "70%", margin: "0 auto"}} autoComplete="off" placeholder="test"></Form.Control>
-            <Button aria-label="save-preset-btn" style={{width: "15%"}} onClick={handleSubmit_save}>💾</Button>
-            <Button aria-label="delete-preset-btn" style={{width: "15%"}} variant="danger" onClick={handleSubmit_delete}>🗑️</Button>
+            <Button aria-label="save-preset-btn" style={{width: "20%"}} onClick={handleSubmit_save}>💾</Button>
+            {/* <Button aria-label="delete-preset-btn" style={{width: "15%"}} variant="danger" onClick={handleSubmit_delete}>🗑️</Button> */}
         </InputGroup>
         </Form>
         </div>

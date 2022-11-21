@@ -13,27 +13,18 @@ import Table from 'react-bootstrap/Table';
 
 import presets from "../../presets.json";
 
-const ToDoPresetList = ({addMultipleTasks, presets, removePreset}) => {
+const ToDoPresetList = ({addMultipleTasks, presets}) => {
     
     return (
-        <Table style={{textAlign: "center"}}>
-            <thead>
-            <tr>
-            <th style={{width: "40%"}}>Name</th>
-            <th>Actions</th>
-            </tr>
-            </thead>
-        <tbody>
+        <Table>
         {
-
         presets.map((preset) => {
                 
                 return (
-                    <ToDoPreset addMultipleTasks={addMultipleTasks} presets={preset} removePreset={() => (removePreset(preset.name))}/>
+                    <ToDoPreset addMultipleTasks={addMultipleTasks} presets={preset} />
                 )
         })
         }
-        </tbody>
         </Table>
     )
 

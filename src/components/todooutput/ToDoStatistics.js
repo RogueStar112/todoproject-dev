@@ -95,7 +95,10 @@ const ToDoStatistics = ({data, clearStatistics, clearStatistics_history, taskLog
         <Tabs defaultActiveKey="bar_frequency" id="statistics-tabs" className="mb-3" fill>
         
         <Tab eventKey="bar_frequency" title="Tag Frequency">
-        <Bar options={options} data={data_to_add} />
+
+        <div className='chart-container'>
+        <Bar options={options} data={data_to_add}/>
+        </div>
         <Button variant="danger" onClick={() => clearStatistics()} style={{width: "100%"}}>Clear Statistics</Button>
         </Tab>
 

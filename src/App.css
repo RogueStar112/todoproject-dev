@@ -4,7 +4,7 @@
   overflow-x: hidden;
 }
 
-body {
+html, body {
   height: 100%;
 }
 
@@ -63,4 +63,21 @@ body {
 
 .mobileInputContainer_threeFields input {
   margin-top: 20px;
+}
+
+canvas {
+  height: 100%;
+}
+
+.advanced-tab-wrapper {
+  height: 100%;
+  margin: 0;
+}
+
+.advanced-tab-wrapper * {
+  flex: 1;
+}
+
+.flex-grow-super {
+  flex: 2;
 }

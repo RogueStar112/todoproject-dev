@@ -9,7 +9,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-function ToDoInputMobile( {addTask} ) {
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+
+import TagList from './TagList';
+
+function ToDoInputMobile( {addTask, toDoList} ) {
 
   const [userInput, setUserInput] = useState("");
   const [userInput_tags, setUserInput_tags] = useState("");
@@ -54,6 +59,11 @@ function ToDoInputMobile( {addTask} ) {
   return (
     <>
 
+    <h3 className="text-center mt-3 superbold">Task creation</h3>
+
+    <Tabs defaultActiveKey="task_creation_main" id="task_creation_main" className="" fill>
+
+    <Tab eventKey="task_creation_main" title="Create new task">
     <Form>
     <Container className="mt-3">
 
@@ -61,7 +71,7 @@ function ToDoInputMobile( {addTask} ) {
 
     </Container>
 
-    <p className='text-center mt-3' style={{fontSize: "10px"}}>------- The last three fields are optional. -------</p>
+    <p className='text-center mt-3' style={{fontSize: "10px"}}>------- The following fields are optional. -------</p>
 
     <Container className="mt-3 mobileInputContainer_threeFields">
 
@@ -70,12 +80,20 @@ function ToDoInputMobile( {addTask} ) {
         <ToDoInputField style={{marginTop: "20px"}} value={userInput_date} onChange={handleChange_date} label="tag date and time" type="datetime-local" name="todo-time" hasSubmitField="true"></ToDoInputField>
         <ToDoInputField style={{marginTop: "20px"}} value={userInput_color} onChange={handleChange_color} label="tag color" type="color" name="todo-color"></ToDoInputField>
 
-        <Button onClick={handleSubmit} style={{marginTop: "20px"}} className="my-2" style={{width: "100%"}} variant="primary" type="submit">
+        <Button onClick={handleSubmit} style={{width: "100%"}} className="my-3" variant="primary" type="submit">
          Submit
         </Button>
 
     </Container>
     </Form>
+    </Tab>
+
+    <Tab eventKey="task_creation_byTag" id="task_creation_byTag" title="Use existing tasks">
+
+    <TagList toDoList={toDoList}></TagList>
+    
+    </Tab>
+    </Tabs>
     </>
   );
 }

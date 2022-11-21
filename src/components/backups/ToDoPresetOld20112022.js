@@ -11,7 +11,7 @@ import Col from 'react-bootstrap/Col';
 
 import SaveToDoPreset from './SaveToDoPreset.js';
 
-const ToDoPreset = ({presets, addMultipleTasks, removePreset}) => {
+const ToDoPreset = ({presets, addMultipleTasks}) => {
 
     const [isHovering, setIsHovering] = useState(false); 
     
@@ -22,12 +22,6 @@ const ToDoPreset = ({presets, addMultipleTasks, removePreset}) => {
 
     const handleMouseOut = () => {
         setIsHovering(false);
-    }
-
-    const revealTasks = () => {
-        return (
-            <></>
-        )
     }
 
     const handleAddMultipleTasks = () => {
@@ -52,16 +46,11 @@ const ToDoPreset = ({presets, addMultipleTasks, removePreset}) => {
     }
  
     return (
-        <tr>
-        <td>
+        <>
+        <Badge bg="danger" className="m-3" style={{cursor: "pointer", margin: "0 auto", padding: "20px"}} onClick={handleAddMultipleTasks}>
             {presets.name}
-        </td>
-
-        <td className="d-flex" style={{justifyContent: "center"}}>
-            <Button className="mx-1" variant="success" aria-label="add-preset-btn" onClick={handleAddMultipleTasks}>➕</Button>
-            <Button className="mx-1" variant="danger" aria-label="delete-preset-btn" onClick={removePreset}>🗑️</Button>
-        </td>
-        </tr>
+        </Badge>
+        </>
     )
 
 }

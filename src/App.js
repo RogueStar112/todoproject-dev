@@ -190,93 +190,109 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
  const removeTasks = (addStatistics) => {
 
 
+  if (toDoList === undefined || toDoList === null || toDoList == "") {
 
-  let filtered = toDoList.filter(task => {
-      return !task.complete; 
-  });
-
-  // Filtered True. Returns a Filter of tasks that are complete. (highlighted in light blue)
-  let filteredTrue = toDoList.filter(task => {
-    return task.complete === true;
-  })
-
-
-
-  //setStatisticsData([])
-
-  if (addStatistics === true) {
-
-    console.log("FILTERED TRUE", filteredTrue);
-    //let newStatisticsData = []
-
-    let newHistoryData = toDoListHistory ? toDoListHistory : [];
-
-    let currentTime = new Date();
-
-    currentTime = currentTime.toLocaleString()
-
-    newHistoryData = [...toDoListHistory, {history_id: toDoListHistory.length + 1, timeLogged: currentTime, data: filteredTrue}];
-
-    let newStatisticsData = statisticsData ? statisticsData : {};
-
-    filteredTrue.forEach(task => {
-      task.tags.forEach(tag => {
-
-        if (newStatisticsData[tag] == null) {
-          newStatisticsData[tag] = {};
-
-          if (task.onTime == true) {
-            newStatisticsData[tag]['complete'] = 1;
-            newStatisticsData[tag]['onTime'] = 1;
-          } else {
-            newStatisticsData[tag]['complete'] = 1;
-          }
-        } else {
-
-          if (task.onTime == true) {
-            newStatisticsData[tag]['complete'] += 1;
-            newStatisticsData[tag]['onTime'] += 1;
-          } else {
-            newStatisticsData[tag]['complete'] += 1;
-          }
-        }
-      })
-
+    if (addStatistics === true) {
     
-    
-    //newStatisticsData.push(statisticsData);
-    })
-      //newStatisticsData = {...statisticsData, labels: {tagName: }, data: []}
+      alert("There are no tasks to publish! Create a task first.")
+    } else {
+      alert("There are no tasks to discard! Create a task first.")
 
-
-    //statisticsData.push()
-
-
-
-    // console.log("NSDATA", newStatisticsData);
-
-    statisticsData = {...newStatisticsData};
-
-    // console.log(statisticsData);
-
-    console.log('TDH HISTORY', newHistoryData)
-    setToDoListHistory(newHistoryData);
-    setStatisticsData(statisticsData);
-
-    //console.log("NSDATA AFTER", newStatisticsData)
-    
+    }
   } else {
-    // do nothing
-  }
-
-  //setToDoListHistory(filtered);
-
-  //toDoListHistory = {...filtered};
 
   
-  setToDoList(filtered);
+      let filtered = toDoList.filter(task => {
+          return !task.complete; 
+      });
+
+      // Filtered True. Returns a Filter of tasks that are complete. (highlighted in light blue)
+      let filteredTrue = toDoList.filter(task => {
+        return task.complete === true;
+      })
 
 
+      if (filteredTrue.length === 0) {
+        alert('You must select a task first!')
+      } else {
+
+
+        //setStatisticsData([])
+
+        if (addStatistics === true) {
+
+          console.log("FILTERED TRUE", filteredTrue);
+          //let newStatisticsData = []
+
+          let newHistoryData = toDoListHistory ? toDoListHistory : [];
+
+          let currentTime = new Date();
+
+          currentTime = currentTime.toLocaleString()
+
+          newHistoryData = [...toDoListHistory, {history_id: toDoListHistory.length + 1, timeLogged: currentTime, data: filteredTrue}];
+
+          let newStatisticsData = statisticsData ? statisticsData : {};
+
+          filteredTrue.forEach(task => {
+            task.tags.forEach(tag => {
+
+              if (newStatisticsData[tag] == null) {
+                newStatisticsData[tag] = {};
+
+                if (task.onTime == true) {
+                  newStatisticsData[tag]['complete'] = 1;
+                  newStatisticsData[tag]['onTime'] = 1;
+                } else {
+                  newStatisticsData[tag]['complete'] = 1;
+                }
+              } else {
+
+                if (task.onTime == true) {
+                  newStatisticsData[tag]['complete'] += 1;
+                  newStatisticsData[tag]['onTime'] += 1;
+                } else {
+                  newStatisticsData[tag]['complete'] += 1;
+                }
+              }
+            })
+
+          
+          
+          //newStatisticsData.push(statisticsData);
+          })
+            //newStatisticsData = {...statisticsData, labels: {tagName: }, data: []}
+
+
+          //statisticsData.push()
+
+
+
+          // console.log("NSDATA", newStatisticsData);
+
+          statisticsData = {...newStatisticsData};
+
+          // console.log(statisticsData);
+
+          console.log('TDH HISTORY', newHistoryData)
+          setToDoListHistory(newHistoryData);
+          setStatisticsData(statisticsData);
+
+          //console.log("NSDATA AFTER", newStatisticsData)
+          
+        } else {
+          // do nothing
+        }
+
+        //setToDoListHistory(filtered);
+
+        //toDoListHistory = {...filtered};
+
+        
+        setToDoList(filtered);
+
+      }
+    }
 }
 
 const clearStatistics = () => {
@@ -369,45 +385,58 @@ const clearStatistics_history = () => {
  
   }
 
-  const removePreset = (name) => {
+  const removePreset = (id) => {
 
     let presetsToRemove = presetData.filter(preset =>{
-        return preset.name != name;
+        return preset.preset_id != id;
     });
 
     setPresetData(presetsToRemove);
 
   }
 
+  const editTask = () => {
+    return (
+      <></>
+    )
+  }
+
   // if a mobile device
-  if(/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+  if(/Android|webOS|iPhone|iPod|iPad|Kindle|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
   return (
-    <div className="app" style={{width: "95vw", margin: "0 auto"}}>
+    <div className="app" style={{width: "95vw", margin: "0 auto"}} >
       
-      <h1 className="text-center superbold underliner mt-3" style={{color: "navyblue"}}>Todo App</h1>
-      <Tabs defaultActiveKey="mobile_main" id="mobile_app" className="mt-5" fill>
+      <h1 className="text-center superbold mt-3" style={{color: "navyblue", fontFamily: "Montserrat", fontSize: "2.7rem"}}>To-do App</h1>
+      <p className="text-center" style={{fontFamily: "Montserrat"}}></p>
+
+      <Tabs defaultActiveKey="mobile_main" id="mobile_app" className="" fill>
 
       <Tab eventKey="mobile_main" title="Home 🏠">
-      <ToDoInputMobile addTask={addTask}/>
+      <ToDoInputMobile addTask={addTask} toDoList={toDoList}/>
      
       <hr></hr>
       
-      
-
       <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask}/>
-      <ClearTasksButton removeTasks={removeTasks}/>
+      <ClearTasksButton removeTasks={removeTasks} editTask={editTask}/>
 
-      <p className="my-2 ml-2" style={{textAlign: "right"}}>{currentDateTime}</p>
+      {/* <p className="my-2 ml-2" style={{textAlign: "right"}}>{currentDateTime}</p> */}
       </Tab>
 
       <Tab eventKey="mobile_advanced" title="Advanced ⚙️">
 
-      <TagFilterMobile filterTasks={filterTasks}/>
+      <div className="">
+      <TagFilterMobile filterTasks={filterTasks} />
 
 
+      <div className="flex-grow-super">
       <ToDoPresetTitle></ToDoPresetTitle>
-      <ToDoPresetList addMultipleTasks={addMultipleTasks} presets={presetData}></ToDoPresetList>
+      <div className="d-flex" style={{justifyContent: "center", flexWrap: "wrap"}}>
+      <ToDoPresetList addMultipleTasks={addMultipleTasks} presets={presetData} removePreset={removePreset}></ToDoPresetList>
+      </div>
       <SaveToDoPreset addPreset={addPreset} removePreset={removePreset} />
+      </div>
+
+      </div>
 
       </Tab>
 
@@ -436,7 +465,7 @@ const clearStatistics_history = () => {
 
     <Col lg="6" style={{margin: "0 auto", position: "relative"}}>
     <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask} />
-    <ClearTasksButton removeTasks={removeTasks}/>
+    <ClearTasksButton removeTasks={removeTasks} editTask={editTask}/>
     </Col>
 
     <Col lg="6">
@@ -469,7 +498,7 @@ const clearStatistics_history = () => {
    
 
       <div className="text-center">
-      <ToDoPresetList addMultipleTasks={addMultipleTasks} presets={presetData}></ToDoPresetList>
+      <ToDoPresetList addMultipleTasks={addMultipleTasks} presets={presetData} removePreset={removePreset}></ToDoPresetList>
       </div>
       <SaveToDoPreset addPreset={addPreset} removePreset={removePreset}/>
 

@@ -8,14 +8,15 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 
 
-const ClearTasksButton = ({removeTasks}) => {
+const ClearTasksButton = ({removeTasks, editTask}) => {
 
 
     return (
 
         <InputGroup>
-        <Button variant="success" onClick={() => removeTasks(true)} style={{width: "70%"}}>Publish Marked Tasks</Button>
-        <Button variant="danger" onClick={() => removeTasks(false)} style={{width: "30%"}}>Discard Marked Tasks</Button>
+        {/* <Button variant="warning" onClick={() => editTask()} style={{width: "33%"}}>Edit</Button> */}
+        <Button variant="danger" onClick={() => removeTasks(false)} style={{width: "30%"}}>Discard</Button>
+        <Button variant="success" onClick={() => removeTasks(true)} style={{width: "70%"}}>Publish</Button>
         </InputGroup>
 
     )

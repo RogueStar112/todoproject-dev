@@ -14,8 +14,8 @@ const ToDoOutput = ({toDoList, counter, toggleTask}) => {
         <Table className="mt-3 text-center">
             <thead className="mt-3">
                 <tr>
-                    <th style={{maxWidth: "10%"}}>ID</th>
-                    <th style={{width: "90%", textAlign: "left"}}>Task</th>
+                    <th style={{maxWidth: "10%"}}></th>
+                    <th style={{width: "90%", textAlign: "center"}}></th>
                     <th className="d-none tag-column">Tags</th>
                     <th className="d-none due-column" style={{width: "30%"}} >Due</th>
                 </tr>

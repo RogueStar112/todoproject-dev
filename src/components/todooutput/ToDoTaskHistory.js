@@ -52,14 +52,14 @@ const ToDoTaskHistory = ({todo, counter, toDoList, toggleTask}) => {
             <td className="d-flex" style={{position: "relative", justifyContent: "space-between", width: "100%"}}>
                 <div className="" style={{textAlign: "justify"}}>{todo.task}<br />{todo.tags.map(todo_tag => {
                 {return (<Badge className={todo.isSearched ? "bg-success mx-1" : "mx-1"} bg="primary">{todo_tag}</Badge>);}
-            })}</div><div style={{color: "red", wordWrap: "normal", display: "inline-block", lineHeight: "48px", }}>⏰ {isDueNow ? "NOW" : dateDisplay.slice(0, -3)}</div></td>
+            })}</div><div className="d-none" style={{color: "red", wordWrap: "normal", display: "inline-block", lineHeight: "48px"}}>⏰ {dateDisplay.slice(0, -3)}</div></td>
             <td className="d-none actions-column">
 
             </td>
             <td className="d-none tag-column" style={{listStyle: "none"}}>{todo.tags.map(todo_tag => {
                 {return (<Badge className={todo.isSearched ? "bg-success mx-1" : "mx-1"} bg="primary">{todo_tag}</Badge>);}
             })}</td>
-            <td className="d-none due-column">{isDueNow ? "NOW" : dateDisplay.slice(0, -3)}</td>
+            <td className="d-none due-column">{dateDisplay.slice(0, -3)}</td>
         </tr>
     );
 }
