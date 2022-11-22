@@ -81,3 +81,8 @@ canvas {
 .flex-grow-super {
   flex: 2;
 }
+
+.nav-item {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}

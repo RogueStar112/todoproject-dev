@@ -406,13 +406,13 @@ const clearStatistics_history = () => {
   return (
     <div className="app" style={{width: "95vw", margin: "0 auto"}} >
       
-      <h1 className="text-center superbold mt-3" style={{color: "navyblue", fontFamily: "Montserrat", fontSize: "2.7rem"}}>To-do App</h1>
+      <h1 className="text-center superbold mt-3" style={{color: "navy", fontFamily: "Montserrat", fontSize: "2.7rem"}}>To-do App</h1>
       <p className="text-center" style={{fontFamily: "Montserrat"}}></p>
 
       <Tabs defaultActiveKey="mobile_main" id="mobile_app" className="" fill>
 
       <Tab eventKey="mobile_main" title="Home 🏠">
-      <ToDoInputMobile addTask={addTask} toDoList={toDoList}/>
+      <ToDoInputMobile addTask={addTask} toDoList={toDoList} toDoListHistory={toDoListHistory}/>
      
       <hr></hr>
       

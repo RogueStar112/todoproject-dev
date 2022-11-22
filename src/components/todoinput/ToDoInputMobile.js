@@ -14,7 +14,7 @@ import Tabs from 'react-bootstrap/Tabs';
 
 import TagList from './TagList';
 
-function ToDoInputMobile( {addTask, toDoList} ) {
+function ToDoInputMobile( {addTask, toDoList, toDoListHistory} ) {
 
   const [userInput, setUserInput] = useState("");
   const [userInput_tags, setUserInput_tags] = useState("");
@@ -90,7 +90,8 @@ function ToDoInputMobile( {addTask, toDoList} ) {
 
     <Tab eventKey="task_creation_byTag" id="task_creation_byTag" title="Use existing tasks">
 
-    <TagList toDoList={toDoList}></TagList>
+    <p className="mt-3 text-center">Click on the tags for their respective tasks.</p>
+    <TagList toDoList={toDoList} toDoListHistory={toDoListHistory}></TagList>
     
     </Tab>
     </Tabs>

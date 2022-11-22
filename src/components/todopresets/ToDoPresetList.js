@@ -29,7 +29,7 @@ const ToDoPresetList = ({addMultipleTasks, presets, removePreset}) => {
         presets.map((preset) => {
                 
                 return (
-                    <ToDoPreset addMultipleTasks={addMultipleTasks} presets={preset} removePreset={() => (removePreset(preset.name))}/>
+                    <ToDoPreset addMultipleTasks={addMultipleTasks} presets={preset} removePreset={() => (removePreset(preset.preset_id))}/>
                 )
         })
         }
