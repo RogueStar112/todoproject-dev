@@ -7,6 +7,7 @@ import ToDoOutput from './components/todooutput/ToDoOutput.js';
 import data from "./data.json";
 import presets from "./presets.json";
 import statistics from "./statistics.json";
+import tag_history from './history_tags.json';
 
 import ToDoPreset from './components/todopresets/ToDoPreset';
 import ToDoPresetTitle from './components/todopresets/ToDoPresetTitle';
@@ -128,7 +129,7 @@ const addMultipleTasks = (tasks) => {
     }
     
 
-    copy = [...copy, { id: toDoList.length + index+1, task: task.task, time: task.time, tags: task.tags, complete: false, onTime: true, isSearched: false, subtasks: [], bg: task.bg }];
+    copy = [...copy, { id: toDoList.length + index+1, task: task.task, time: task.time, tags: task.tags, complete: false, onTime: true, isSearched: false, isSearchedByTag: false, subtasks: [], bg: task.bg }];
   });
 
   setToDoList(copy);
@@ -167,7 +168,7 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
 
 
   let copy = [...toDoList];
-  copy = [...copy, { id: toDoList.length + 1, task: userInput_task, time: userInput_date, tags: userInput_tags, complete: false, onTime: true, isSearched: false, subtasks: [], bg: userInput_bg }];
+  copy = [...copy, { id: toDoList.length + 1, task: userInput_task, time: userInput_date, tags: userInput_tags, complete: false, onTime: true, isSearched: false, isSearchedByTag: false, subtasks: [], bg: userInput_bg }];
   setToDoList(copy);
 
   //setToDoListHistory(copy);

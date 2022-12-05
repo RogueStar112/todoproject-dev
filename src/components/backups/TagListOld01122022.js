@@ -8,19 +8,20 @@ import Badge from 'react-bootstrap/Badge';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
-import ToDoTaskSearched from '../todooutput/ToDoTaskSearched';
-
 import { useLocalStorage } from '../../useLocalStorage';
 
 
 import Tag from './Tag';
 
-const TagList = ({toDoList, toDoListHistory, filterResults}) => {
+let tasksFiltered = []
+
+const TagList = ({toDoList, toDoListHistory}) => {
 
     
     const [toDoListTags, setToDoListTags] = useLocalStorage('toDoListTags', [])
 
     let uniqueToDoListTags = []
+
 
 
     useEffect(() => {  
@@ -33,14 +34,33 @@ const TagList = ({toDoList, toDoListHistory, filterResults}) => {
             })
         })
     })
+    
 
+    // Makes a unique array
+    
     uniqueToDoListTags = [...new Set(uniqueToDoListTags)]
+    
+    // Sorts that unique array
 
     uniqueToDoListTags = uniqueToDoListTags.sort();
 
     setToDoListTags(uniqueToDoListTags);
 
-    }, [toDoList])
+    toDoListTags.forEach(tag => {
+        toDoListHistory.forEach(task_history => {
+            task_history.data.filter(task => {
+                if (task.tags.includes(tag) === true) {
+                    tasksFiltered = [...tasksFiltered, task]
+                }
+                //return task.tags.includes(tag);
+            })
+        })
+    });
+    
+    console.log('TASKS FILTERED', tasksFiltered)
+
+
+    }, [toDoListHistory])
     
 
     const filterTasksByTag = (tag) => {
@@ -72,11 +92,25 @@ const TagList = ({toDoList, toDoListHistory, filterResults}) => {
     }
 
     return (
-        toDoListTags.map((tag) => {
-        return (
-            <Badge variant="primary" className="m-2 p-2" style={{cursor: "pointer"}} onClick={() => filterResults(tag)}>{tag}</Badge>
-        )
-        })
+        <Tabs defaultActiveKey="existingTasks_main" id="existingTasks_main" className="" fill>
+        {
+            toDoListTags.map((tag) => {
+            return (
+                <Tab eventKey={tag} title={tag} onClick={((tag) => filterTasksByTag(tag))}>
+                    {
+                        tasksFiltered.map(task_details => {
+                            task_details.tags.map(tag => {
+                            return (
+                                <h1>Test</h1>
+                            )
+                        })
+                        })
+                    }
+                </Tab>
+            )
+            })
+        }
+        </Tabs>
     )
 
 }

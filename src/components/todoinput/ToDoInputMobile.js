@@ -14,12 +14,91 @@ import Tabs from 'react-bootstrap/Tabs';
 
 import TagList from './TagList';
 
+import Table from 'react-bootstrap/Table';
+
+import ToDoTaskSearched from '../todooutput/ToDoTaskSearched';
+
+import { useLocalStorage } from '../../useLocalStorage';
+import tag_history from '../../history_tags.json';
+
 function ToDoInputMobile( {addTask, toDoList, toDoListHistory} ) {
 
   const [userInput, setUserInput] = useState("");
   const [userInput_tags, setUserInput_tags] = useState("");
   const [userInput_color, setUserInput_color] = useState("#DDDDDD");
   const [userInput_date, setUserInput_date] = useState("");
+
+
+  let [filteredResults, setFilteredResults] = useLocalStorage('filtered_results', tag_history || []);
+
+  const filterResults = (name) => {
+    
+    /*let mapped = toDoList.map(task => {
+      return task.tags.includes(name) === true ? { ...task, isSearchedByTag: !task.isSearchedByTag } : { ...task};
+    });*/
+
+    let filtered_list = toDoListHistory;
+
+    console.log('FLIST', filtered_list);
+    
+    let filtered_array = [];
+
+    let filtered = filtered_list.map((task) => {
+
+      //console.log("TTAGS", task.tags);
+
+      task.data.map(data => {
+        let isValidated = false
+        data.tags.map(
+          tag => {
+            if (tag.startsWith(name)) {
+              isValidated = true;
+            } else {
+
+            }
+
+          });
+
+          if (isValidated == true) {
+            //console.log('DATA T', data);
+            filtered_array.push({...data, isSearchedByTag: true})
+
+            //console.log('T FILTERED ARRAY' , filtered_array);
+            return {...data, isSearchedByTag: true}
+            
+          } else {
+            //console.log('DATA F', data);
+
+            //filtered_array.push({...data, isSearchedByTag: false})
+            
+            //console.log('F FILTERED ARRAY' , filtered_array);
+            return {...data, isSearchedByTag: false}
+          }
+        })
+    });
+    /*
+    let filtered = filtered_list.map(task => {
+
+        console.log("TTAGS", task.tags);
+        task.tags.map(tag => tag.startsWith(query) == true;
+        );
+
+      });
+    */
+    
+    //console.log("FILTERED LIST", filtered)
+
+    setFilteredResults(filtered_array);
+
+    
+    //setFilteredResults(filtered);
+  
+    //setFilteredResults(mapped)
+
+    //console.log('FILTERED RESULTS', filteredResults)
+
+  }
+
 
   const handleChange = (e) => {
     setUserInput(e.currentTarget.value);
@@ -91,8 +170,29 @@ function ToDoInputMobile( {addTask, toDoList, toDoListHistory} ) {
     <Tab eventKey="task_creation_byTag" id="task_creation_byTag" title="Use existing tasks">
 
     <p className="mt-3 text-center">Click on the tags for their respective tasks.</p>
-    <TagList toDoList={toDoList} toDoListHistory={toDoListHistory}></TagList>
+    <TagList toDoList={toDoList} toDoListHistory={toDoListHistory} filterResults={filterResults}></TagList>
     
+
+    <Table className="mt-3 text-center">
+            <thead className="mt-3">
+                <tr>
+                    <th style={{maxWidth: "10%"}}></th>
+                    <th style={{width: "90%", textAlign: "center"}}></th>
+                    <th className="d-none tag-column">Tags</th>
+                    <th className="d-none due-column" style={{width: "30%"}} >Due</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {filteredResults.map(todo => {
+
+                return (
+                    <ToDoTaskSearched key={todo.id+todo.task} todo={todo} addTask={addTask} />         
+                );
+                    
+            })}
+            </tbody>
+    </Table>
     </Tab>
     </Tabs>
     </>
