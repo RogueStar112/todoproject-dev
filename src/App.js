@@ -89,6 +89,8 @@ const [ presetData, setPresetData ] = useLocalStorage('presets', presets || []);
 
 let [ statisticsData, setStatisticsData ] = useLocalStorage('statistics', statistics || {});
 
+let [filteredResults, setFilteredResults] = useLocalStorage('filtered_results', tag_history || []);
+
 /*
 var i;
 
@@ -311,6 +313,7 @@ const clearStatistics_history = () => {
 
   if (window.confirm(choice)) {
     setToDoListHistory([]);
+    setFilteredResults([]);
   }
 }
 
@@ -402,6 +405,74 @@ const clearStatistics_history = () => {
     )
   }
 
+  const filterResults = (name) => {
+    
+    /*let mapped = toDoList.map(task => {
+      return task.tags.includes(name) === true ? { ...task, isSearchedByTag: !task.isSearchedByTag } : { ...task};
+    });*/
+
+    let filtered_list = toDoListHistory;
+
+    console.log('FLIST', filtered_list);
+    
+    let filtered_array = [];
+
+    let filtered = filtered_list.map((task) => {
+
+      //console.log("TTAGS", task.tags);
+
+      task.data.map(data => {
+        let isValidated = false
+        data.tags.map(
+          tag => {
+            if (tag.startsWith(name)) {
+              isValidated = true;
+            } else {
+
+            }
+
+          });
+
+          if (isValidated == true) {
+            //console.log('DATA T', data);
+            filtered_array.push({...data, isSearchedByTag: true})
+
+            //console.log('T FILTERED ARRAY' , filtered_array);
+            return {...data, isSearchedByTag: true}
+            
+          } else {
+            //console.log('DATA F', data);
+
+            //filtered_array.push({...data, isSearchedByTag: false})
+            
+            //console.log('F FILTERED ARRAY' , filtered_array);
+            return {...data, isSearchedByTag: false}
+          }
+        })
+    });
+    /*
+    let filtered = filtered_list.map(task => {
+
+        console.log("TTAGS", task.tags);
+        task.tags.map(tag => tag.startsWith(query) == true;
+        );
+
+      });
+    */
+    
+    //console.log("FILTERED LIST", filtered)
+
+    setFilteredResults(filtered_array);
+
+    
+    //setFilteredResults(filtered);
+  
+    //setFilteredResults(mapped)
+
+    //console.log('FILTERED RESULTS', filteredResults)
+
+  }
+
   // if a mobile device
   if(/Android|webOS|iPhone|iPod|iPad|Kindle|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
   return (
@@ -413,7 +484,7 @@ const clearStatistics_history = () => {
       <Tabs defaultActiveKey="mobile_main" id="mobile_app" className="" fill>
 
       <Tab eventKey="mobile_main" title="Home 🏠">
-      <ToDoInputMobile addTask={addTask} toDoList={toDoList} toDoListHistory={toDoListHistory}/>
+      <ToDoInputMobile addTask={addTask} toDoList={toDoList} toDoListHistory={toDoListHistory} filterResults={filterResults} filteredResults={filteredResults}/>
      
       <hr></hr>
       

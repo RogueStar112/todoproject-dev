@@ -21,84 +21,12 @@ import ToDoTaskSearched from '../todooutput/ToDoTaskSearched';
 import { useLocalStorage } from '../../useLocalStorage';
 import tag_history from '../../history_tags.json';
 
-function ToDoInputMobile( {addTask, toDoList, toDoListHistory} ) {
+function ToDoInputMobile( {addTask, toDoList, toDoListHistory, filterResults, filteredResults} ) {
 
   const [userInput, setUserInput] = useState("");
   const [userInput_tags, setUserInput_tags] = useState("");
   const [userInput_color, setUserInput_color] = useState("#DDDDDD");
   const [userInput_date, setUserInput_date] = useState("");
-
-
-  let [filteredResults, setFilteredResults] = useLocalStorage('filtered_results', tag_history || []);
-
-  const filterResults = (name) => {
-    
-    /*let mapped = toDoList.map(task => {
-      return task.tags.includes(name) === true ? { ...task, isSearchedByTag: !task.isSearchedByTag } : { ...task};
-    });*/
-
-    let filtered_list = toDoListHistory;
-
-    console.log('FLIST', filtered_list);
-    
-    let filtered_array = [];
-
-    let filtered = filtered_list.map((task) => {
-
-      //console.log("TTAGS", task.tags);
-
-      task.data.map(data => {
-        let isValidated = false
-        data.tags.map(
-          tag => {
-            if (tag.startsWith(name)) {
-              isValidated = true;
-            } else {
-
-            }
-
-          });
-
-          if (isValidated == true) {
-            //console.log('DATA T', data);
-            filtered_array.push({...data, isSearchedByTag: true})
-
-            //console.log('T FILTERED ARRAY' , filtered_array);
-            return {...data, isSearchedByTag: true}
-            
-          } else {
-            //console.log('DATA F', data);
-
-            //filtered_array.push({...data, isSearchedByTag: false})
-            
-            //console.log('F FILTERED ARRAY' , filtered_array);
-            return {...data, isSearchedByTag: false}
-          }
-        })
-    });
-    /*
-    let filtered = filtered_list.map(task => {
-
-        console.log("TTAGS", task.tags);
-        task.tags.map(tag => tag.startsWith(query) == true;
-        );
-
-      });
-    */
-    
-    //console.log("FILTERED LIST", filtered)
-
-    setFilteredResults(filtered_array);
-
-    
-    //setFilteredResults(filtered);
-  
-    //setFilteredResults(mapped)
-
-    //console.log('FILTERED RESULTS', filteredResults)
-
-  }
-
 
   const handleChange = (e) => {
     setUserInput(e.currentTarget.value);
