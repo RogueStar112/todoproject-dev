@@ -71,28 +71,28 @@ function ToDoInputMobile( {addTask, toDoList, toDoListHistory, filterResults, fi
     <Tabs defaultActiveKey="task_creation_main" id="task_creation_main" className="" fill>
 
     <Tab eventKey="task_creation_main" title="Create new task">
-    <Form>
-    <Container className="mt-3">
+      <Form>
+        <Container className="mt-3">
 
-        <ToDoInputField value={userInput} onChange={handleChange} label="Name of task*" type="text" name="todo-name" placeholder="Clean room desk"></ToDoInputField>
+            <ToDoInputField value={userInput} onChange={handleChange} label="Name of task*" type="text" name="todo-name" placeholder="Clean room desk"></ToDoInputField>
 
-    </Container>
+        </Container>
 
-    <p className='text-center mt-3' style={{fontSize: "10px"}}>------- The following fields are optional. -------</p>
+        <p className='text-center mt-3' style={{fontSize: "10px"}}>------- The following fields are optional. -------</p>
 
-    <Container className="mt-3 mobileInputContainer_threeFields">
+        <Container className="mt-3 mobileInputContainer_threeFields">
 
-        
-        <ToDoInputField style={{marginTop: "20px"}} value={userInput_tags} onChange={handleChange_tags} label="tags (separate with commas)" type="text" name="todo-tags" placeholder="chores, cleaning"></ToDoInputField>
-        <ToDoInputField style={{marginTop: "20px"}} value={userInput_date} onChange={handleChange_date} label="tag date and time" type="datetime-local" name="todo-time" hasSubmitField="true"></ToDoInputField>
-        <ToDoInputField style={{marginTop: "20px"}} value={userInput_color} onChange={handleChange_color} label="tag color" type="color" name="todo-color"></ToDoInputField>
+            
+            <ToDoInputField style={{marginTop: "20px"}} value={userInput_tags} onChange={handleChange_tags} label="tags (separate with commas)" type="text" name="todo-tags" placeholder="chores, cleaning"></ToDoInputField>
+            <ToDoInputField style={{marginTop: "20px"}} value={userInput_date} onChange={handleChange_date} label="tag date and time" type="datetime-local" name="todo-time" hasSubmitField="true"></ToDoInputField>
+            <ToDoInputField style={{marginTop: "20px"}} value={userInput_color} onChange={handleChange_color} label="tag color" type="color" name="todo-color"></ToDoInputField>
 
-        <Button onClick={handleSubmit} style={{width: "100%"}} className="my-3" variant="primary" type="submit">
-         Submit
-        </Button>
+            <Button onClick={handleSubmit} style={{width: "100%"}} className="my-3" variant="primary" type="submit">
+            Submit
+            </Button>
 
-    </Container>
-    </Form>
+        </Container>
+      </Form>
     </Tab>
 
     <Tab eventKey="task_creation_byTag" id="task_creation_byTag" title="Use existing tasks">

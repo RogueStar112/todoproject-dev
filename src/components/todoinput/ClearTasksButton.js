@@ -15,8 +15,8 @@ const ClearTasksButton = ({removeTasks, editTask}) => {
 
         <InputGroup>
         {/* <Button variant="warning" onClick={() => editTask()} style={{width: "33%"}}>Edit</Button> */}
-        <Button variant="danger" onClick={() => removeTasks(false)} style={{width: "30%"}}>Discard</Button>
-        <Button variant="success" onClick={() => removeTasks(true)} style={{width: "70%"}}>Publish</Button>
+            <Button variant="danger" onClick={() => removeTasks(false)} style={{width: "30%"}}>Discard</Button>
+            <Button variant="success" onClick={() => removeTasks(true)} style={{width: "70%"}}>Publish</Button>
         </InputGroup>
 
     )

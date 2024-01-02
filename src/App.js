@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import ToDoInput from './components/todoinput/ToDoInput.js';
 import ToDoInputMobile from './components/todoinput/ToDoInputMobile';
 import ToDoOutput from './components/todooutput/ToDoOutput.js';
@@ -16,6 +15,7 @@ import SaveToDoPreset from './components/todopresets/SaveToDoPreset';
 
 import 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import ClearTasksButton from './components/todoinput/ClearTasksButton';
 
 import TagFilter from './components/todoinput/TagFilter.js';
@@ -413,7 +413,7 @@ const clearStatistics_history = () => {
 
     let filtered_list = toDoListHistory;
 
-    console.log('FLIST', filtered_list);
+    // console.log('FLIST', filtered_list);
     
     let filtered_array = [];
 
@@ -478,7 +478,7 @@ const clearStatistics_history = () => {
   return (
     <div className="app" style={{width: "95vw", margin: "0 auto"}} >
       
-      <h1 className="text-center superbold mt-3" style={{color: "navy", fontFamily: "Montserrat", fontSize: "2.7rem"}}>To-do App</h1>
+      <h1 className="text-center superbold mt-4" style={{color: "navy", fontFamily: "Montserrat", fontSize: "2.7rem"}}>To-do App</h1>
       <p className="text-center" style={{fontFamily: "Montserrat"}}></p>
 
       <Tabs defaultActiveKey="mobile_main" id="mobile_app" className="" fill>

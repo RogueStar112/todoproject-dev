@@ -73,9 +73,9 @@ const TagList = ({toDoList, toDoListHistory, filterResults}) => {
 
     return (
         toDoListTags.map((tag) => {
-        return (
-            <Badge variant="primary" className="m-2 p-2" style={{cursor: "pointer"}} onClick={() => filterResults(tag)}>{tag}</Badge>
-        )
+            return (
+                <Badge variant="primary" className="m-2 p-2" style={{cursor: "pointer"}} onClick={() => filterResults(tag)}>{tag}</Badge>
+            )
         })
     )
 
