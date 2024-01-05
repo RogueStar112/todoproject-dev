@@ -459,7 +459,7 @@ const clearStatistics_history = () => {
     
     //console.log("FILTERED LIST", filtered)
 
-    setFilteredResults(filtered_array);
+    // setFilteredResults(filtered_array);
 
     
     //setFilteredResults(filtered);

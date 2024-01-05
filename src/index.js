@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
+/*
 import './index.css'
 import { useState, useEffect } from 'react'
 import { createClient } from '@supabase/supabase-js'
@@ -35,11 +36,12 @@ export default function AuthApp() {
     return (<React.StrictMode><App /></React.StrictMode>)
   }
 }
+*/
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AuthApp />
+    <App />
     
   </React.StrictMode>
 
