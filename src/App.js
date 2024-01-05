@@ -89,8 +89,6 @@ const [ presetData, setPresetData ] = useLocalStorage('presets', presets || []);
 
 let [ statisticsData, setStatisticsData ] = useLocalStorage('statistics', statistics || {});
 
-let [filteredResults, setFilteredResults] = useLocalStorage('filtered_results', tag_history || []);
-
 /*
 var i;
 
@@ -313,7 +311,6 @@ const clearStatistics_history = () => {
 
   if (window.confirm(choice)) {
     setToDoListHistory([]);
-    setFilteredResults([]);
   }
 }
 
@@ -484,7 +481,7 @@ const clearStatistics_history = () => {
       <Tabs defaultActiveKey="mobile_main" id="mobile_app" className="" fill>
 
       <Tab eventKey="mobile_main" title="Home 🏠">
-      <ToDoInputMobile addTask={addTask} toDoList={toDoList} toDoListHistory={toDoListHistory} filterResults={filterResults} filteredResults={filteredResults}/>
+      <ToDoInputMobile addTask={addTask} toDoList={toDoList} toDoListHistory={toDoListHistory}/>
      
       <hr></hr>
       
