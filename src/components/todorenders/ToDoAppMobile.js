@@ -1,5 +1,5 @@
 
-const ToDoAppMobile = () => [
+const ToDoAppMobile = () => {
 
     return (
       <div className="app" style={{width: "95vw", margin: "0 auto"}}>
@@ -41,6 +41,6 @@ const ToDoAppMobile = () => [
     </div>
     )
 
-]
+}
 
 export default ToDoAppMobile;

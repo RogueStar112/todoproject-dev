@@ -22,13 +22,19 @@ const ToDoOutput = ({toDoList, counter, toggleTask}) => {
             </thead>
 
             <tbody>
-            {toDoList.map(todo => {
 
-                return (
-                    <ToDoTask key={todo.id+todo.task} toDoList={toDoList} todo={todo} counter={counter} toggleTask={toggleTask}   />                
-                );
+            {
+                (toDoList.length === 0 ? <tr><td colspan="4">No tasks on list.</td></tr> : toDoList.map(todo => {
+
+                        return (
+                            <ToDoTask key={todo.id+todo.task} toDoList={toDoList} todo={todo} counter={counter} toggleTask={toggleTask}   />                
+                        );
+                            
+                    })) 
+
                     
-            })}
+        
+            }
             </tbody>
         </Table>
         </div>

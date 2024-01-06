@@ -167,9 +167,18 @@ const addTask = (userInput_task, userInput_tags, userInput_bg, userInput_date) =
   }
 
 
+  // adding the task
+
   let copy = [...toDoList];
   copy = [...copy, { id: toDoList.length + 1, task: userInput_task, time: userInput_date, tags: userInput_tags, complete: false, onTime: true, isSearched: false, isSearchedByTag: false, subtasks: [], bg: userInput_bg }];
-  setToDoList(copy);
+
+  // sorting the date, then the ID, so that the tasks are in chronological order.
+
+  let sortedCopy = copy.slice().sort((a,b) => new Date(a.time) - new Date(b.time))
+
+  sortedCopy.map((task, index) => task.id = index+1)
+
+  setToDoList(sortedCopy);
 
   //setToDoListHistory(copy);
   
@@ -523,7 +532,7 @@ const clearStatistics_history = () => {
   } else {
     return (
     
-    <div className="app" style={{width: "70vw", margin: "0 auto"}}>
+    <div className="app" style={{width: "50vw", margin: "0 auto"}}>
 
     <ToDoInput addTask={addTask}/>
     
@@ -532,9 +541,9 @@ const clearStatistics_history = () => {
 
     <Row>
 
-    <Col lg="6" style={{margin: "0 auto", position: "relative"}}>
-    <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask} />
-    <ClearTasksButton removeTasks={removeTasks} editTask={editTask}/>
+    <Col lg="6" style={{display: "flex", flexDirection: "column", justifyContent: "space-between", margin: "0 auto", position: "relative"}}>
+      <ToDoOutput toDoList={toDoList} counter={counter} toggleTask={toggleTask} />
+      <ClearTasksButton removeTasks={removeTasks} editTask={editTask}/>
     </Col>
 
     <Col lg="6">

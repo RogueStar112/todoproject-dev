@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import * as icon from 'react-bootstrap-icons';
 import { getTime } from 'date-fns';
 
-const ToDoTaskHistory = ({todo, counter, toDoList, toggleTask}) => {
+const ToDoTaskHistory = ({todo, counter, index, toDoList, toggleTask}) => {
 
     const [isFinished, setIsFinished] = useState(todo.complete);
 
@@ -48,7 +48,7 @@ const ToDoTaskHistory = ({todo, counter, toDoList, toggleTask}) => {
 
     return (
         <tr style={{cursor: "pointer", maxHeight: "64px", display: "flex", width: "100%"}} key={todo.id+todo.task} className="mb-3">
-            <td style={{backgroundColor: `${todo.bg}`, padding: "10px", marginRight: "10px"}}>{todo.id}</td>
+            <td style={{backgroundColor: `${todo.bg}`, padding: "10px", marginRight: "10px"}}></td>
             <td className="d-flex" style={{position: "relative", justifyContent: "space-between", width: "100%"}}>
                 <div className="" style={{textAlign: "justify"}}>{todo.task}<br />{todo.tags.map(todo_tag => {
                 {return (<Badge className={todo.isSearched ? "bg-success mx-1" : "mx-1"} bg="primary">{todo_tag}</Badge>);}
